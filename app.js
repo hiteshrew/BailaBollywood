@@ -97,6 +97,10 @@ app.get("/someKeyword/:username/:password/:email", (req, res) => {
 });
 
 app.get("/", function (req, res) {
+  if(req.query.login=='true'){
+    console.log("logged in");
+    return res.redirect("/?login=true")
+  }
   feed.load("https://medium.com/feed/@bailabollywood20", (err, rss) => {
 
     if (err) {
@@ -107,17 +111,19 @@ app.get("/", function (req, res) {
         var str = (item.content_encoded);
         var output = "";
         var n = str.indexOf("img");
-        str = str.substring(n + 16);
-        for (var i = 0; i < str.length; i++) {
+        str = str.substring(n);
+        n=str.indexOf("src");
+        str=str.substring(n);
+        for(var i =5 ; i < str.length; i++) {
           if (str[i] == '"') {
             break;
           }
           output += str[i];
         }
         item["imgUrl"] = output;
-
+        console.log(output);
       });
-      console.log(rss);
+     
       res.render("landing", { blogs: rss });
     }
   });
