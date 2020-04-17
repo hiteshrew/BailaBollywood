@@ -287,6 +287,12 @@ app.get("/team",(req,res) => {
   res.render("team.ejs");
 });
 
+
+app.use(function(req,res){
+    res.status(404).render('error-page.ejs');
+});
+
+
 app.listen(port, err => {
   if (err) {
     throw err;

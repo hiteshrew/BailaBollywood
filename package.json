@@ -35,5 +35,13 @@
     "start": "node app.js"
   },
   "author": "Pawan & Vaibhav",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiteshrew/BailaBollywood.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hiteshrew/BailaBollywood/issues"
+  },
+  "homepage": "https://github.com/hiteshrew/BailaBollywood#readme"
 }

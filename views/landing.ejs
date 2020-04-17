@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <!--Title of the Website-->
-  <title>Baila Bollywood</title>
+  <title>Baila Bollywood-A Spanish Language Portal on Indian Dance Songs</title>
   <!--Meta tag that tells browser to not translate page to english (Preferably chrome)-->
   <meta name="google" content="notranslate" />
   <!--Meta tags for SEO-->
@@ -16,7 +16,7 @@
   <!--Meta tag for google site verification-->
   <meta name="google-site-verification" content="86RNMqD2_RNqFP-WmWf9pmzSbjEz_RQMLAnS8yhKQpg" />
   
-  
+  <meta name="keywords" content="Cine Bollywood, canciones de bollywood, baile de bollywood, películas hindu, películas de la india, cultural india, indian culture, danzas de la india, bailes de la india, bollywood en español, cine de bollywood">
   <!--Title bar Icon-->
   <link rel="icon" href="/images/Spanish-bolo-natraj-transparent.png" />
   <!---------------Bootstrap Stylesheet---------------------------------------->
@@ -68,18 +68,18 @@
               <a class="nav-link text-center font-weight-bold " href="/">Inicio </a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="#about">
+              <a class="nav-link text-center font-weight-bold ">
                 Quiénes Somos
                 </a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="#blogs">Nuestro Blog</a>
+              <a class="nav-link text-center font-weight-bold ">Nuestro Blog</a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="#pop-categ">Lo más Popular</a>
+              <a class="nav-link text-center font-weight-bold ">Lo más Popular</a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="#found-note">Nuestro Fundador </a>
+              <a class="nav-link text-center font-weight-bold ">Nuestro Fundador </a>
             </li>
             <li class="nav-item m-xl-2">
               <a class="nav-link text-center font-weight-bold" data-toggle="modal" data-target="#exampleModalCenter" >Contacto</a>
@@ -121,8 +121,8 @@
             <div class="jumbotron hero-image  text-center mb-0" id="bg-image-text">
               <h1 class=" text-center    welcome-heading">Bienvenidos  
               </h1>
-              <strong><p class="text-center  welcome-heading ">a</p>
-              </strong>
+              <p class="text-center  welcome-heading ">a</p>
+              
               <h1 class=" text-center   welcome-heading notranslate">Baila Bollywood</h1>
             </div>
           </div>
@@ -179,7 +179,7 @@
         <h2 class="display-3 heading-section">Danza y Música Clásica de la India 
               </h2>
         <div class="line mb-3"></div>
-        <img src="/images/dance-indian.jpg" class="traditional-dance-img ml-auto mr-auto mb-3" />
+        <img src="/images/dance-indian.jpg" class="traditional-dance-img ml-auto mr-auto mb-3" alt="Indian Dance image" />
         <div class="indian_dance-music-history indian-dance-music-spanish notranslate">
           <p>
             <a href="https://es.wikipedia.org/wiki/India" target="_blank" title="India increíble">India</a> es famosa
@@ -272,40 +272,40 @@
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6   mb-3">
 
         <a href="/images/lady-playing-sitar.jpg" target="_blank">
-          <img class="image-gallery  " src="/images/lady-playing-sitar.jpg">
+          <img class="image-gallery  " src="/images/lady-playing-sitar.jpg" alt="Lady with Sitar">
         </a>
 
       </div>
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6  mb-3">
 
-        <a href="/images/painting-5.jpg" target="_blank">
-          <img class="image-gallery " src="/images/painting-5.jpg">
+        <a href="/images/painting-5.jpg" target="_blank" >
+          <img class="image-gallery " src="/images/painting-5.jpg" alt="painting image">
         </a>
 
       </div>
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6  mb-3">
 
         <a href="/images/painting-4.jpg" target="_blank">
-          <img class="image-gallery  " src="/images/painting-4.jpg">
+          <img class="image-gallery  " src="/images/painting-4.jpg" alt="painting-image 4">
         </a>
 
       </div>
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6  mb-3">
 
         <a href="/images/painting-2.jpg" target="_blank">
-          <img class="image-gallery" src="/images/painting-2.jpg">
+          <img class="image-gallery" src="/images/painting-2.jpg" alt="painting image 2">
         </a>
 
       </div>
     </div>
     </div>
-    <a id="about">
+    
   </section>
 
 
   <!------------------About Us Section-three-------------------------->
 
-  <section class="baila-section section-two mb-5">
+  <section class="baila-section section-two mb-5" id="about">
     <div class="container">
       <div class="jumbotron section_two-about-us text-center  ">
         <h2 class="about-heading display-2 section-heading heading-section  ">
@@ -351,14 +351,14 @@
       </div>
 
     </div>
-    </a>
-    <a id="blogs">
+  
+    
   </section>
 
 
   <!--Baila bollywood blogs section-->
   <%if(blogs){%>
-  <div class="section-five review-slider">
+  <div class="section-five review-slider" id="blogs">
     <h1 class="section-heading text-white heading-section mx-5 mt-5 ml-5 mb-5 display-3 text-center">Nuestro Blog
   </h1>
     <div class="swiper-container container swiper-reviews">
@@ -366,7 +366,7 @@
         <%blogs.items.forEach(function(blog){%>
         <div class="swiper-slide notranslate">
           <div class="overlay-blog"></div>
-          <img class="review-image" src=<%=blog.imgUrl%>>
+          <img class="review-image" alt="blog-images" src=<%=blog.imgUrl%>>
           <a href=<%=blog.link%> style=" text-decoration:none; color:white; font-size: 1.5rem;" class="blog-name mb-5"
             target="_blank"><%=blog.title%></a>
           <p class="blog-date mt-5"><%=blog.pubDate%></p>
@@ -375,7 +375,7 @@
         <div class="swiper-slide notranslate">
           <a href="https://medium.com/@bailabollywood20" style=" text-decoration:none; "
             class="medium-blog-link mb-5 btn btn-light " target="_blank">Show More</a>
-          <img class="review-image" src="/images/video-frame-img.jpeg">
+          <img class="review-image" src="/images/video-frame-img.jpeg" alt="vid frame image">
         </div>
       </div>
       <br>
@@ -385,7 +385,6 @@
       <div class="swiper-button-next swiper-btn "></div>
       <div class="swiper-button-prev swiper-btn"></div>
     </div>
-    <a href="#pop-categ" style="text-decoration: none; color:#000;">
   </div>
 
   <%}%>
@@ -395,7 +394,7 @@
     <!----------------- Most Popular Categories Section-4----------------->
 
     <section class="baila-section section-four" id="pop-categ">
-      </a>
+      
       <h2 class="display-2 popular-artist-heading heading-section text-center">Descubrir
       </h2>
       <div class="line mt-4 mb-4"></div>
@@ -586,6 +585,7 @@
     <!--------------------------------------local Javascrpt files--------------------------------------------------------->
    
     <script src="/scripts/spanish-to-english-translate.js"></script>
+    <script src="/scripts/internal-scroll-to-links.js"></script>
 
     <!-------------------------bootstrap javascript----------------------------->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
