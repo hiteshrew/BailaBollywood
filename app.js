@@ -287,6 +287,31 @@ app.get("/team",(req,res) => {
   res.render("team.ejs");
 });
 
+app.get("/india-map", (req,res) => {
+  res.render("image-map-code.ejs");
+});
+
+app.get("/rajasthan", (req,res) => {
+  res.render("states/rajasthan.ejs")
+});
+app.get("/maharashtra", (req,res) => {
+  res.render("states/maharashtra.ejs")
+});
+
+app.get("/kashmir", (req,res) => {
+  res.render("states/kashmir.ejs")
+});
+
+app.get("/gujrat", (req,res) => {
+  res.render("states/gujrat.ejs")
+});
+app.get("/punjab", (req,res) => {
+  res.render("states/punjab.ejs")
+});
+app.get("/orissa", (req,res) => {
+  res.render("states/orissa.ejs")
+});
+
 
 app.use(function(req,res){
     res.status(404).render('error-page.ejs');
