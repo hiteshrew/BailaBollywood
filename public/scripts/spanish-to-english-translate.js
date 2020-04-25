@@ -1,4 +1,4 @@
-var span=document.getElementsByClassName('spanish_translation');
+       var span=document.getElementsByClassName('spanish_translation');
        var eng=document.getElementsByClassName('english_translation');
 
        var spanFounder=document.getElementsByClassName('spanish_translation-founder');
@@ -7,6 +7,9 @@ var span=document.getElementsByClassName('spanish_translation');
        var dancemusicSpanish=document.getElementsByClassName('indian-dance-music-spanish');
        var dancemusicEnglish=document.getElementsByClassName('indian-dance-music-english');
 
+       var teamIntroSpanish = document.getElementsByClassName('team-intro-spanish');
+       var teamIntroEnglish = document.getElementsByClassName('team-intro-english');
+       
         eng[0].style.display='none';
         engFounder[0].style.display='none';
         dancemusicEnglish[0].style.display='none';
@@ -47,3 +50,15 @@ var span=document.getElementsByClassName('spanish_translation');
            dancemusicEnglish[0].style.display='none';
            dancemusicSpanish[0].style.display='block';
        } 
+
+       function spanToengTeamIntro()
+       {
+        teamIntroSpanish[0].style.display = 'none';
+        teamIntroEnglish[0].style.display = 'block';
+       }
+
+       function engTospaTeamIntro()
+       {
+        teamIntroSpanish[0].style.display = 'block';
+        teamIntroEnglish[0].style.display = 'none';
+       }
