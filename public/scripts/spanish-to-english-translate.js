@@ -10,6 +10,10 @@
        var teamIntroSpanish = document.getElementsByClassName('team-intro-spanish');
        var teamIntroEnglish = document.getElementsByClassName('team-intro-english');
        
+       var mapIntroSpanish = document.getElementsByClassName('map-intro-spanish');
+       var mapIntroEnglish = document.getElementsByClassName('map-intro-english');
+       
+       
         eng[0].style.display='none';
         engFounder[0].style.display='none';
         dancemusicEnglish[0].style.display='none';
@@ -61,4 +65,16 @@
        {
         teamIntroSpanish[0].style.display = 'block';
         teamIntroEnglish[0].style.display = 'none';
+       }
+
+       function spanToengMapIntro()
+       {
+        mapIntroSpanish[0].style.display = 'none';
+        mapIntroEnglish[0].style.display = 'block';
+       }
+
+       function engTospaMapIntro()
+       {
+        mapIntroSpanish[0].style.display = 'block';
+        mapIntroEnglish[0].style.display = 'none';
        }

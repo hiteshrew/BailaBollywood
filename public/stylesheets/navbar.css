@@ -1,6 +1,7 @@
 #nav-header
 {
  padding-right:0;
+ padding :4px;
 }
 .navbar,
 .navbar-expand-lg,
@@ -15,7 +16,9 @@ navbar-light
   margin-right:auto;
   margin-left:auto;
   font-weight: 100;
+  font-size: 16px;
   color:rgba(247, 183, 51, 1);
+  padding: 4px;
 }
 .navbar-toggler
 {
@@ -35,7 +38,7 @@ navbar-light
 {
   width:80px;
   height:80px;
- transform:scale(1.2);
+ transform:scale(1.1);
 }
 .navbar-nav
 {
@@ -82,3 +85,4 @@ navbar-light
   filter: blur(0);
   border-bottom:1px solid rgba(255, 95, 109, 0.5);
 }
+
