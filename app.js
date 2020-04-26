@@ -15,6 +15,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const Promise = require('promise');
 const apiRoutes = require('./androidApi/index');
+const path = require('path');
 
 
 app.use(apiRoutes);
@@ -313,10 +314,10 @@ app.get("/orissa", (req,res) => {
   res.render("states/orissa.ejs")
 });
 app.get('/sitemap.xml', function(req, res) {
-  res.sendFile(__dirname+'\\\sitemap.xml');
+  res.sendFile(path.join(__dirname,'/sitemap.xml'));
   });
 app.get('/Robots.txt',(req,res)=>{
-  res.sendFile(__dirname+'\\\Robots.txt');
+  res.sendFile(path.join(__dirname,'/robots.txt'));
 })
 
 app.use(function(req,res){
@@ -330,7 +331,7 @@ app.listen(port, err => {
     throw err;
   }
   console.log(`App is ready on port :${port}`);
-  console.log(__dirname+'\\\sitemap.xml');
+  console.log(path.join(__dirname,'/sitemap.xml'));
   
 });
 
