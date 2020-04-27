@@ -15,6 +15,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const Promise = require('promise');
 const apiRoutes = require('./androidApi/index');
+const path = require('path');
 
 
 app.use(apiRoutes);
@@ -49,6 +50,7 @@ app.use(function (req, res, next) {
 });
 
 var MongoURI = "mongodb+srv://pawan:ps199912@cluster0-y6m1y.mongodb.net/test?retryWrites=true&w=majority";
+
 mongoose.connect(MongoURI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 
@@ -311,17 +313,25 @@ app.get("/punjab", (req,res) => {
 app.get("/orissa", (req,res) => {
   res.render("states/orissa.ejs")
 });
-
+app.get('/sitemap.xml', function(req, res) {
+  res.sendFile(path.join(__dirname,'/sitemap.xml'));
+  });
+app.get('/Robots.txt',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/robots.txt'));
+})
 
 app.use(function(req,res){
     res.status(404).render('error-page.ejs');
 });
 
 
+
 app.listen(port, err => {
   if (err) {
     throw err;
   }
-  console.log(`App is ready on port :${port}`)
+  console.log(`App is ready on port :${port}`);
+  console.log(path.join(__dirname,'/sitemap.xml'));
+  
 });
 
