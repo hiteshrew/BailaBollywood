@@ -1,7 +1,6 @@
 #nav-header
 {
  padding-right:0;
- padding :4px;
 }
 .navbar,
 .navbar-expand-lg,
@@ -12,14 +11,15 @@ navbar-light
 
 }
  .navbar .navbar-collapse .navbar-nav .nav-item .nav-link
-{
+{/*
   margin-right:auto;
-  margin-left:auto;
+  margin-left:auto;*/
   font-weight: 100;
   font-size: 16px;
   color:rgba(247, 183, 51, 1);
-  padding: 4px;
-}
+  padding: 1px;
+  margin-left: 2px;
+ }
 .navbar-toggler
 {
   padding:10px;
@@ -85,4 +85,3 @@ navbar-light
   filter: blur(0);
   border-bottom:1px solid rgba(255, 95, 109, 0.5);
 }
-
