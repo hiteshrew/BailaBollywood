@@ -166,16 +166,17 @@
 }
 
 .fluid-container{
-  max-width: 1200px;		
+  max-width: 1900px;		
   background-color: #f4f4f4;
   text-align: center;
   margin: auto;
-  padding: 6px;
+  padding: 60px;
   border: 4px solid rgba(247, 183, 51, 1);
   border-radius: 15px;
   margin-top: 5px;
   font-weight: 500;
- 
+  -webkit-clip-path: polygon(12% 0%, 100% 0%, 88% 100%, 0% 100%);
+clip-path: polygon(12% 0%, 100% 0%, 88% 100%, 0% 100%);
 }
    
     </style>
@@ -241,19 +242,19 @@
   </nav>
 
   <div class="fluid-container">
-      <p class=" team-intro-spanish">BailaBollywood es un proyecto de divulgación cultural, fundado y asistido por jóvenes originarios de India y América Latina, con un férreo interés y pasión por las artes y las ciencias universales. Nuestro compromiso como equipo de trabajo es acrecentar y fortalecer los vínculos entre India y el mundo hispanohablante, de tal manera, que esta unión represente un puente de infinitas posibilidades de cooperación y comunicación cultural entre ambas regiones. Al ser un espacio abierto al diálogo y el dinamismo, nos encontramos en constante crecimiento; sobre todo, buscamos expandir nuestras perspectivas a nuevos miembros y sus valiosas aportaciones. Si tú como nosotros tienes interés en explorar la diversidad cultural y artística alrededor del mundo ¡únete a nuestro equipo!, BailaBollywood te espera. 
-      	<button onclick="spanToengTeamIntro()" class="spanish-to-english d-inline btn btn-save float-right mt-4">Convert to
+      <p class="team-intro-spanish" style="text-align: center; padding-left: 40px; padding-right: 40px; margin-left: 30px; margin-right: 30px;">BailaBollywood es un proyecto de divulgación cultural, fundado y asistido por jóvenes originarios de India y América Latina, con un férreo interés y pasión por las artes y las ciencias universales. Nuestro compromiso como equipo de trabajo es acrecentar y fortalecer los vínculos entre India y el mundo hispanohablante, de tal manera, que esta unión represente un puente de infinitas posibilidades de cooperación y comunicación cultural entre ambas regiones. Al ser un espacio abierto al diálogo y el dinamismo, nos encontramos en constante crecimiento; sobre todo, buscamos expandir nuestras perspectivas a nuevos miembros y sus valiosas aportaciones. Si tú como nosotros tienes interés en explorar la diversidad cultural y artística alrededor del mundo ¡únete a nuestro equipo!, BailaBollywood te espera. 
+      	<button style="margin-right:50%;" onclick="spanToengTeamIntro()" class="spanish-to-english d-inline btn btn-save float-right mt-4">Convert to
             English</button>
       </p>
     
-      <p class=" team-intro-english" style="display: none">
+      <p class=" team-intro-english" style="display: none; text-align: center; padding-left: 40px; padding-right: 40px; margin-left: 30px; margin-right: 30px;">
         BailaBollywood is a cultural outreach project, founded and assisted by young people from India and Latin America, with a strong interest and passion for universal arts and sciences. Our commitment as a work team is to increase and strengthen the ties between India and the Spanish-speaking world, in such a way that this union represents a bridge of infinite possibilities of cooperation and cultural communication between both regions. Being a space open to dialogue and dynamism, we are in constant growth; Above all, we seek to expand our perspectives to new members and their valuable contributions. If you like us have an interest in exploring cultural and artistic diversity around the world, join our team! BailaBollywood awaits you.
-            <button onclick="engTospaTeamIntro()" class="english-to-spanish d-inline btn btn-save float-right mt-4">Convert to
+            <button style="margin-right:50%;" onclick="engTospaTeamIntro()" class="english-to-spanish d-inline btn btn-save float-right mt-4">Convert to
             Spanish</button>
         </p>
   </div>
   <div class="demo">
-    <div class="container" style="margin-top:25px; max-width: 100%;">
+    <div class="container" style="margin-top:80px; max-width: 100%;">
         <div class="row">
             <div class="col-md-12">
                 <div id="testimonial-slider" class="owl-carousel">
