@@ -16,12 +16,17 @@ const MongoStore = require('connect-mongo')(session);
 const Promise = require('promise');
 const apiRoutes = require('./androidApi/index');
 const path = require('path');
+const BlogRoutes = require('./Routes/blog');
+const fileUpload = require('express-fileupload');
+const expressSanitizer = require('express-sanitizer');
 
 
 app.use(apiRoutes);
 const port =  3000;
-
-
+app.use(expressSanitizer());
+app.use(fileUpload());
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -50,6 +55,7 @@ app.use(function (req, res, next) {
 });
 
 var MongoURI = "mongodb+srv://pawan:ps199912@cluster0-y6m1y.mongodb.net/test?retryWrites=true&w=majority";
+//mongoose.connect("mongodb://localhost/yelp_camp_v4",{useNewUrlParser:true , useUnifiedTopology:true});
 
 mongoose.connect(MongoURI, { useUnifiedTopology: true, useNewUrlParser: true });
 
@@ -319,6 +325,10 @@ app.get('/sitemap.xml', function(req, res) {
 app.get('/Robots.txt',(req,res)=>{
   res.sendFile(path.join(__dirname,'/robots.txt'));
 })
+//app.get('/blogs',(req,res)=>{
+//  res.render('./blogs/index');
+//})
+app.use("/blogs",BlogRoutes);
 
 app.use(function(req,res){
     res.status(404).render('error-page.ejs');
@@ -331,7 +341,7 @@ app.listen(port, err => {
     throw err;
   }
   console.log(`App is ready on port :${port}`);
-  console.log(path.join(__dirname,'/sitemap.xml'));
+  console.log(path.join(__dirname));
   
 });
 
