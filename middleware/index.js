@@ -16,5 +16,18 @@ middlewareObj.isLoggedIn1 = function (req, res, next) {
     next();
 }
 
+middlewareObj.isAdmin = function(req,res,next){
+    if(req.isAuthenticated()){
+        let user = req.user.username;
+        if(user.localeCompare("Gaming Bros")==0)
+        {   console.log("Admin Logged IN");
+            return next();}
+    }
+    console.log("You are not authorised");
+    req.flash("error", "You are not authorised to do that");
+    res.redirect("/");
+
+}
+
 
 module.exports = middlewareObj;

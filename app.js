@@ -23,7 +23,9 @@ const expressSanitizer = require('express-sanitizer');
 
 app.use(apiRoutes);
 const port =  3000;
+// sanitizing js for blog input
 app.use(expressSanitizer());
+// controlling Uploading and deleting file for blog
 app.use(fileUpload());
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
@@ -55,9 +57,9 @@ app.use(function (req, res, next) {
 });
 
 var MongoURI = "mongodb+srv://pawan:ps199912@cluster0-y6m1y.mongodb.net/test?retryWrites=true&w=majority";
-//mongoose.connect("mongodb://localhost/yelp_camp_v4",{useNewUrlParser:true , useUnifiedTopology:true});
+mongoose.connect("mongodb://localhost/yelp_camp_v4",{useNewUrlParser:true , useUnifiedTopology:true});
 
-mongoose.connect(MongoURI, { useUnifiedTopology: true, useNewUrlParser: true });
+//mongoose.connect(MongoURI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 
 
