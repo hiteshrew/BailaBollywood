@@ -111,28 +111,35 @@ router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
 })
 
 router.get("/bollywood",(req,res)=>{
-  Blog.find({}).then(blogs => {
+  
+  Blog.find({tag:"Bollywood"}).then(blogs => {
     res.render('../views/blogs/bollywood',{blogs});
   })
 })
 router.get("/folkDance",(req,res)=>{
-  Blog.find({}).then(blogs => {
+  Blog.find({tag:"Folk Dance"}).then(blogs => {
     res.render('../views/blogs/folkDance',{blogs});
   })
 })
 router.get("/music",(req,res)=>{
-  Blog.find({}).then(blogs => {
+  Blog.find({tag:"Music"}).then(blogs => {
     res.render('../views/blogs/music',{blogs});
   })
 })
 router.get("/art",(req,res)=>{
-  Blog.find({}).then(blogs => {
+  
+  Blog.find({tag:"Art"}).then(blogs => {
     res.render('../views/blogs/art',{blogs});
   })
 })
 router.get("/literature",(req,res)=>{
-  Blog.find({}).then(blogs => {
+  Blog.find({tag:"Literature"}).then(blogs => {
     res.render('../views/blogs/literature',{blogs});
+  })
+})
+router.get("/AllBlogs",(req,res)=>{
+  Blog.find({}).then(blogs=>{
+    res.render("../views/blogs/blogAll",{blogs});
   })
 })
 
