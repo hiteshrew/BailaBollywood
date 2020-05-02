@@ -46,7 +46,7 @@ passport.use('local',
 passport.use(new GoogleStrategy({
     // options for google stratrgy.
 
-    callbackURL: "http://localhost:3000/auth/google/redirect",
+    callbackURL: "https://bailabollywood.com/auth/google/redirect",
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret
 
