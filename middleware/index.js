@@ -19,7 +19,7 @@ middlewareObj.isLoggedIn1 = function (req, res, next) {
 middlewareObj.isAdmin = function(req,res,next){
     if(req.isAuthenticated()){
         let user = req.user.username;
-        if(user.localeCompare("Gaming Bros")==0)
+        if(user.localeCompare("BailaBollywood Admin")==0)
         {   console.log("Admin Logged IN");
             return next();}
     }

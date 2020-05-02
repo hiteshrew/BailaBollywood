@@ -9,6 +9,7 @@ const middleware = require('../middleware');
 // everything will start from /blogs
 
 // url:/blogs
+//  INdex page route
 router.get('/', (req, res) => {
     Blog.find({}).then(blogs => {
       res.render('../views/blogs/index',{blogs});
@@ -16,9 +17,12 @@ router.get('/', (req, res) => {
   })
 
   //url:/blogs/new
-  router.get('/posts/new' ,(req, res) => res.render('../views/blogs/new'));
-
+  // Posting new Blog
+  // Only Admin can see this page
+  router.get('/posts/new' ,middleware.isAdmin,(req, res) => res.render('../views/blogs/new'));
+  console.log(global.admin);
   //url:/blogs/:id
+  // getting individual Post
   router.get('/posts/:id', (req, res) => {
     let id = req.params.id;
     
@@ -29,7 +33,9 @@ router.get('/', (req, res) => {
     });
 
   });
-  router.get('/posts/:id/comments',(req,res)=>{
+
+  // Only Admin can see the comments
+  router.get('/posts/:id/comments',middleware.isAdmin,(req,res)=>{
     let id = req.params.id;
     
     Blog.findById(id).populate("comments").exec(function(err,blog){
@@ -39,8 +45,24 @@ router.get('/', (req, res) => {
     });
   })
 
+  // deleting comments
+  // Only Adming can delete comment
+router.delete("/posts/:id/comments/:cid",middleware.isAdmin,(req,res)=>{
+  
+  let cid = req.params.cid;
+  BlogComment.findByIdAndRemove(cid).then(err=>{
+    
+      res.redirect("back");
+    
+  }).catch(err=>{
+    res.redirect('back');
+  })
+});
+
   //url:/blogs/new
-router.post('/posts/new',(req, res) => {
+  // Adding New Blog
+  // Only Admin can Add new Blog
+router.post('/posts/new',middleware.isAdmin,(req, res) => {
     console.log("Post Method Triggered");
     if (req.files) {
         let file = req.files.image;
@@ -63,8 +85,8 @@ router.post('/posts/new',(req, res) => {
 }); 
 
 
-// deleting Blog
-router.get('/posts/:id/delete',async (req,res)=>{
+// deleting Blog ---only Admin can delete it
+router.get('/posts/:id/delete',middleware.isAdmin,async (req,res)=>{
   console.log("Delete Method Triggered");
   let id = req.params.id;
   Blog.findById(id).then(blog=>{
@@ -91,6 +113,7 @@ router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
   //console.log("post method triggered");
   Blog.findById(id).then(blog=>{
     BlogComment.create(req.body.comment).then(blogcomment=>{
+      //comment out below statement when middleware is applied
       blogcomment.author.id=req.user._id;
       blogcomment.author.username = req.user.username;
       blogcomment.save();
@@ -98,7 +121,7 @@ router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
       blog.comments.push(blogcomment);
       //console.log(blog.comments);
       blog.save();
-      req.flash("success","Succesfully Added Comment");
+      //req.flash("success","Succesfully Added Comment")
       res.redirect('/blogs/posts/'+blog._id);
 
     }).catch(err=>{
@@ -110,37 +133,46 @@ router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
   
 })
 
+// bollywood blog index page
 router.get("/bollywood",(req,res)=>{
   
-  Blog.find({tag:"Bollywood"}).then(blogs => {
+  Blog.find({tag:"Bollywood"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/bollywood',{blogs});
   })
 })
+// Folk Dance Blog Index Page
 router.get("/folkDance",(req,res)=>{
-  Blog.find({tag:"Folk Dance"}).then(blogs => {
+  Blog.find({tag:"Folk Dance"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/folkDance',{blogs});
   })
 })
+// Music Blog Index Page
 router.get("/music",(req,res)=>{
-  Blog.find({tag:"Music"}).then(blogs => {
+  Blog.find({tag:"Music"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/music',{blogs});
   })
 })
+// Art Blogs Index Page
 router.get("/art",(req,res)=>{
   
-  Blog.find({tag:"Art"}).then(blogs => {
+  Blog.find({tag:"Art"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/art',{blogs});
   })
 })
+
+// Literature Blog Index Page
 router.get("/literature",(req,res)=>{
-  Blog.find({tag:"Literature"}).then(blogs => {
+  Blog.find({tag:"Literature"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/literature',{blogs});
   })
 })
+
+// All Blogs Combined
 router.get("/AllBlogs",(req,res)=>{
-  Blog.find({}).then(blogs=>{
+  Blog.find({}).sort({created:-1}).then(blogs=>{
     res.render("../views/blogs/blogAll",{blogs});
   })
 })
+
 
 module.exports = router;

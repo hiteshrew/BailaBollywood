@@ -26,7 +26,7 @@ const BlogSchema = new Schema({
   content: {type: String, required: true},
   creator: {type: String, required: true},
   tag:{type:String , required:true},
-  name:{type:String},
+  created:  {type: Date, default: Date.now},
   time: {type: String, default: date()},
   comments:[
     {
