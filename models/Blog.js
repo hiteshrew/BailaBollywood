@@ -25,8 +25,15 @@ const BlogSchema = new Schema({
   image: {type: String, required: true, unique: false, default: './public/assets/uploads/example.png'},
   content: {type: String, required: true},
   creator: {type: String, required: true},
-  name:{type:String},
-  time: {type: String, default: date()}
+  tag:{type:String , required:true},
+  created:  {type: Date, default: Date.now},
+  time: {type: String, default: date()},
+  comments:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BlogComment"
+   }
+  ]
 })
 
 module.exports = mongoose.model('Blog', BlogSchema);

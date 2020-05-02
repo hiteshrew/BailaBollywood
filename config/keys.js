@@ -1,7 +1,7 @@
 module.exports = {
     google: {
-        clientID: "301640887296-afvbtji7tegnrk19tvk1k4hris4od4nv.apps.googleusercontent.com",
-        clientSecret: "DRzWAUJZ9z_xrmZwI_RlN3pn"
+        clientID: "176247572076-3i631petfl8e45mpo6vvc15421054mr9.apps.googleusercontent.com",
+        clientSecret: "fWvys75jTKRoJiiDu47iJ6s2"
     },
     session: {
         cookieKey: "12345"

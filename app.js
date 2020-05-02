@@ -19,12 +19,18 @@ const path = require('path');
 const BlogRoutes = require('./Routes/blog');
 const fileUpload = require('express-fileupload');
 const expressSanitizer = require('express-sanitizer');
+const methodOverride = require('method-override');
 
 
 app.use(apiRoutes);
 const port =  3000;
+// sanitizing js for blog input
 app.use(expressSanitizer());
+// controlling Uploading and deleting file for blog
 app.use(fileUpload());
+// using method over riding for deleting and Updating
+app.use(methodOverride('_method'));
+
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
@@ -341,7 +347,7 @@ app.listen(port, err => {
     throw err;
   }
   console.log(`App is ready on port :${port}`);
-  console.log(path.join(__dirname));
+  //console.log(path.join(__dirname));
   
 });
 
