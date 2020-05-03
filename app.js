@@ -298,11 +298,11 @@ app.get("/auth/facebook/redirect", passport.authenticate('facebook', {
 
 
 
-app.get("/team",cacheData.memoryCacheUse(36000),(req,res) => {
+app.get("/equipo",(req,res) => {
   res.render("team.ejs");
 });
 
-app.get("/india-map", cacheData.memoryCacheUse(36000),(req,res) => {
+app.get("/danzas-folkloricas-de-India", (req,res) => {
   res.render("image-map-code.ejs");
 });
 
