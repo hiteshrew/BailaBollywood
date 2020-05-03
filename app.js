@@ -297,11 +297,11 @@ app.get("/auth/facebook/redirect", passport.authenticate('facebook', {
 
 
 
-app.get("/team",(req,res) => {
+app.get("/equipo",(req,res) => {
   res.render("team.ejs");
 });
 
-app.get("/india-map", (req,res) => {
+app.get("/danzas-folkloricas-de-India", (req,res) => {
   res.render("image-map-code.ejs");
 });
 
