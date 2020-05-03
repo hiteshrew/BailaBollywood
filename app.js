@@ -20,6 +20,7 @@ const BlogRoutes = require('./Routes/blog');
 const fileUpload = require('express-fileupload');
 const expressSanitizer = require('express-sanitizer');
 const methodOverride = require('method-override');
+const cacheData = require('./middleware/cacheData');
 
 
 app.use(apiRoutes);
@@ -110,7 +111,7 @@ app.get("/someKeyword/:username/:password/:email", (req, res) => {
   res.json({ message: "It works" });
 });
 
-app.get("/", function (req, res) {
+app.get("/",cacheData(30), function (req, res) {
   if(req.query.login=='true'){
     console.log("logged in");
     return res.redirect("/?login=true")
@@ -143,11 +144,11 @@ app.get("/", function (req, res) {
   });
 });
 
-app.get("/register",middleware.isLoggedIn1, function (req, res) {
+app.get("/register",middleware.isLoggedIn1,cacheData(30), function (req, res) {
   res.render("register");
 });
 
-app.get("/dashboard",middleware.isLoggedIn, function (req, res) {
+app.get("/dashboard",middleware.isLoggedIn,cacheData(30), function (req, res) {
 
   res.render("dashboard");
 });
@@ -221,7 +222,7 @@ app.post("/contact-us", (req, res) => {
   });
 });
 
-app.get("/login", middleware.isLoggedIn1, function (req, res) {
+app.get("/login", middleware.isLoggedIn1,cacheData(30), function (req, res) {
   res.render("login");
 });
 
@@ -297,38 +298,38 @@ app.get("/auth/facebook/redirect", passport.authenticate('facebook', {
 
 
 
-app.get("/team",(req,res) => {
+app.get("/team",cacheData(30),(req,res) => {
   res.render("team.ejs");
 });
 
-app.get("/india-map", (req,res) => {
+app.get("/india-map", cacheData(30),(req,res) => {
   res.render("image-map-code.ejs");
 });
 
-app.get("/rajasthan", (req,res) => {
+app.get("/rajasthan", cacheData(30),(req,res) => {
   res.render("states/rajasthan.ejs")
 });
-app.get("/maharashtra", (req,res) => {
+app.get("/maharashtra", cacheData(30),(req,res) => {
   res.render("states/maharashtra.ejs")
 });
 
-app.get("/kashmir", (req,res) => {
+app.get("/kashmir", cacheData(30),(req,res) => {
   res.render("states/kashmir.ejs")
 });
 
-app.get("/gujrat", (req,res) => {
+app.get("/gujrat", cacheData(30),(req,res) => {
   res.render("states/gujrat.ejs")
 });
-app.get("/punjab", (req,res) => {
+app.get("/punjab", cacheData(30),(req,res) => {
   res.render("states/punjab.ejs")
 });
-app.get("/orissa", (req,res) => {
+app.get("/orissa", cacheData(30),(req,res) => {
   res.render("states/orissa.ejs")
 });
-app.get('/sitemap.xml', function(req, res) {
+app.get('/sitemap.xml', cacheData(30),(req, res)=> {
   res.sendFile(path.join(__dirname,'/sitemap.xml'));
   });
-app.get('/Robots.txt',(req,res)=>{
+app.get('/Robots.txt',cacheData(30),(req,res)=>{
   res.sendFile(path.join(__dirname,'/robots.txt'));
 })
 //app.get('/blogs',(req,res)=>{
