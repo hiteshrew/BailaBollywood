@@ -50,7 +50,7 @@ app.use(flash());
 
 // set view engine
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public", { maxAge: 864000000 }));
 
 
 
