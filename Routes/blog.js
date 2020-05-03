@@ -11,7 +11,7 @@ const cacheData = require('../middleware/cacheData');
 
 // url:/blogs
 //  INdex page route
-router.get('/',cacheData(30), (req, res) => {
+router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
     Blog.find({}).then(blogs => {
       res.render('../views/blogs/index',{blogs});
     })
@@ -20,11 +20,11 @@ router.get('/',cacheData(30), (req, res) => {
   //url:/blogs/new
   // Posting new Blog
   // Only Admin can see this page
-  router.get('/posts/new',cacheData(30) ,middleware.isAdmin,(req, res) => res.render('../views/blogs/new'));
+  router.get('/posts/new',middleware.isAdmin,cacheData.memoryCacheUse(36000),(req, res) => res.render('../views/blogs/new'));
   console.log(global.admin);
   //url:/blogs/:id
   // getting individual Post
-  router.get('/posts/:id',cacheData(30), (req, res) => {
+  router.get('/posts/:id',cacheData.memoryCacheUse(36000), (req, res) => {
     let id = req.params.id;
     
     Blog.findById(id).populate("comments").exec(function(err,blog){
@@ -36,7 +36,7 @@ router.get('/',cacheData(30), (req, res) => {
   });
 
   // Only Admin can see the comments
-  router.get('/posts/:id/comments',middleware.isAdmin,cacheData(30),(req,res)=>{
+  router.get('/posts/:id/comments',middleware.isAdmin,cacheData.memoryCacheUse(36000),(req,res)=>{
     let id = req.params.id;
     
     Blog.findById(id).populate("comments").exec(function(err,blog){
@@ -87,7 +87,7 @@ router.post('/posts/new',middleware.isAdmin,(req, res) => {
 
 
 // deleting Blog ---only Admin can delete it
-router.get('/posts/:id/delete',middleware.isAdmin,cacheData(30),async (req,res)=>{
+router.get('/posts/:id/delete',middleware.isAdmin,cacheData.memoryCacheUse(36000),async (req,res)=>{
   console.log("Delete Method Triggered");
   let id = req.params.id;
   Blog.findById(id).then(blog=>{
@@ -135,26 +135,26 @@ router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
 })
 
 // bollywood blog index page
-router.get("/bollywood",cacheData(30),(req,res)=>{
+router.get("/bollywood",cacheData.memoryCacheUse(36000),(req,res)=>{
   
   Blog.find({tag:"Bollywood"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/bollywood',{blogs});
   })
 })
 // Folk Dance Blog Index Page
-router.get("/folkDance",cacheData(30),(req,res)=>{
+router.get("/folkDance",cacheData.memoryCacheUse(36000),(req,res)=>{
   Blog.find({tag:"Folk Dance"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/folkDance',{blogs});
   })
 })
 // Music Blog Index Page
-router.get("/music",cacheData(30),(req,res)=>{
+router.get("/music",cacheData.memoryCacheUse(36000),(req,res)=>{
   Blog.find({tag:"Music"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/music',{blogs});
   })
 })
 // Art Blogs Index Page
-router.get("/art",cacheData(30),(req,res)=>{
+router.get("/art",cacheData.memoryCacheUse(36000),(req,res)=>{
   
   Blog.find({tag:"Art"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/art',{blogs});
@@ -162,14 +162,14 @@ router.get("/art",cacheData(30),(req,res)=>{
 })
 
 // Literature Blog Index Page
-router.get("/literature",cacheData(30),(req,res)=>{
+router.get("/literature",cacheData.memoryCacheUse(36000),(req,res)=>{
   Blog.find({tag:"Literature"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/literature',{blogs});
   })
 })
 
 // All Blogs Combined
-router.get("/AllBlogs",cacheData(30),(req,res)=>{
+router.get("/AllBlogs",cacheData.memoryCacheUse(36000),(req,res)=>{
   Blog.find({}).sort({created:-1}).then(blogs=>{
     res.render("../views/blogs/blogAll",{blogs});
   })
