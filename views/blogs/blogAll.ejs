@@ -8,14 +8,14 @@
 <body style="background:linear-gradient(to right,#ff5f6d,#f7b733);">
 <div class="container">
   <% blogs.forEach( blog => { %>
-    <div class="container" style="margin-top: 50px; border: 1px dashed black; padding-bottom: 30px; padding-top:30px">
+    <div class="container-fluid" style="margin-top: 50px; border: 1px dashed black; padding-bottom: 30px; padding-top:30px">
       <div class="row">
-        <div class="col-md-5">
-          <div class="container">
+        <div class="col-xs-12 col-sm-12 col-md-8">
+          <div class="container-fluid">
             <img style="width: 100%; height: auto;" src="/uploads/<%= blog.image %>" alt="image">
           </div>
         </div>
-        <div class="col-md-7 ">
+        <div class="col-xs-12 col-sm-12 col-md-4 ">
           <div class="container">
           
             <div >
@@ -37,7 +37,14 @@
    
 
   <%   }); %>
+  <a href="/blogs/AllBlogs?page=<%=page-1%>">
+    <button style="background:linear-gradient(to right,#ff5f6d,#f7b733); border:2px solid #f7b733; margin-top:10px">Previous Page</button>
+    </a>
+  <a class="float-right" href="/blogs/AllBlogs?page=<%=++page%>">
+  <button style="background:linear-gradient(to right,#ff5f6d,#f7b733); border:2px solid #f7b733; margin-top:10px;">Next Page</button>
+  </a>
 </div>
+
 <script>
   $(".target").each(function(){
     let text = ( $(this).text());

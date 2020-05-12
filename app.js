@@ -21,6 +21,8 @@ const fileUpload = require('express-fileupload');
 const expressSanitizer = require('express-sanitizer');
 const methodOverride = require('method-override');
 const cacheData = require('./middleware/cacheData');
+const StateRoutes = require("./Routes/state");
+const InterviewRoutes = require('./Routes/interview');
 
 
 app.use(apiRoutes);
@@ -50,7 +52,7 @@ app.use(flash());
 
 // set view engine
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public", { maxAge: 864000000 }));
+app.use(express.static(__dirname + "/public", { maxAge: 2592000000 }));
 
 
 
@@ -77,7 +79,7 @@ var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "bailabollywood20@gmail.com",
-    pass: 'Bailabollywood@20'
+    pass: 'holabolo2020'
   }
 });
 var mailOptions = {
@@ -296,46 +298,18 @@ app.get("/auth/facebook/redirect", passport.authenticate('facebook', {
   res.redirect("/");
 });
 
-
-
-app.get("/equipo",(req,res) => {
-  res.render("team.ejs");
-});
-
-app.get("/danzas-folkloricas-de-India", (req,res) => {
-  res.render("image-map-code.ejs");
-});
-
-app.get("/rajasthan", cacheData.memoryCacheUse(36000),(req,res) => {
-  res.render("states/rajasthan.ejs")
-});
-app.get("/maharashtra", cacheData.memoryCacheUse(36000),(req,res) => {
-  res.render("states/maharashtra.ejs")
-});
-
-app.get("/kashmir", cacheData.memoryCacheUse(36000),(req,res) => {
-  res.render("states/kashmir.ejs")
-});
-
-app.get("/gujrat", cacheData.memoryCacheUse(36000),(req,res) => {
-  res.render("states/gujrat.ejs")
-});
-app.get("/punjab", cacheData.memoryCacheUse(36000),(req,res) => {
-  res.render("states/punjab.ejs")
-});
-app.get("/orissa", cacheData.memoryCacheUse(36000),(req,res) => {
-  res.render("states/orissa.ejs")
-});
+//app.get('/blogs',(req,res)=>{
+//  res.render('./blogs/index');
+//})
+app.use("/",StateRoutes);
+app.use("/blogs",BlogRoutes);
+app.use("/",InterviewRoutes);
 app.get('/sitemap.xml', cacheData.memoryCacheUse(36000),(req, res)=> {
   res.sendFile(path.join(__dirname,'/sitemap.xml'));
   });
 app.get('/Robots.txt',cacheData.memoryCacheUse(36000),(req,res)=>{
   res.sendFile(path.join(__dirname,'/robots.txt'));
 })
-//app.get('/blogs',(req,res)=>{
-//  res.render('./blogs/index');
-//})
-app.use("/blogs",BlogRoutes);
 
 app.use(function(req,res){
     res.status(404).render('error-page.ejs');

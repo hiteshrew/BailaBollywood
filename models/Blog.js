@@ -33,6 +33,12 @@ const BlogSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "BlogComment"
    }
+  ],
+  subBlogs:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"SubBlog"
+    }
   ]
 })
 

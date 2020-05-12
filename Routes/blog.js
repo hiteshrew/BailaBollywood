@@ -6,6 +6,12 @@ const path = require('path');
 const BlogComment = require('../models/BlogComment');
 const middleware = require('../middleware');
 const cacheData = require('../middleware/cacheData');
+const axios = require('axios');
+const feed = require('rss-to-json');
+const SubBlog = require('../models/SubBlog');
+
+
+
 
 // everything will start from /blogs
 
@@ -20,23 +26,33 @@ router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
   //url:/blogs/new
   // Posting new Blog
   // Only Admin can see this page
-  router.get('/posts/new',middleware.isAdmin,cacheData.memoryCacheUse(36000),(req, res) => res.render('../views/blogs/new'));
+  router.get('/posts/new',cacheData.memoryCacheUse(36000),(req, res) => res.render('../views/blogs/new'));
   console.log(global.admin);
+
+  router.get("/posts/new2",(req,res)=>{
+    res.render("../views/blogs/new2");
+  })
+
   //url:/blogs/:id
   // getting individual Post
-  router.get('/posts/:id',cacheData.memoryCacheUse(36000), (req, res) => {
+  router.get('/posts/:id',cacheData.memoryCacheUse(36000), async (req, res) => {
     let id = req.params.id;
     
-    Blog.findById(id).populate("comments").exec(function(err,blog){
+    Blog.findById(id).populate("subBlogs").populate("comments").exec(function(err,blog){
       if(err)
       console.log(err);
-      res.render('../views/blogs/show', {blog});
+      
+      var subBlogz=blog.subBlogs;
+      subBlogz.forEach(function(subBlog){
+        console.log(subBlog.image);
+      })
+      res.render('../views/blogs/show', {blog,subBlogz});
     });
 
   });
 
   // Only Admin can see the comments
-  router.get('/posts/:id/comments',middleware.isAdmin,cacheData.memoryCacheUse(36000),(req,res)=>{
+  router.get('/posts/:id/comments',cacheData.memoryCacheUse(36000),(req,res)=>{
     let id = req.params.id;
     
     Blog.findById(id).populate("comments").exec(function(err,blog){
@@ -48,7 +64,7 @@ router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
 
   // deleting comments
   // Only Adming can delete comment
-router.delete("/posts/:id/comments/:cid",middleware.isAdmin,(req,res)=>{
+router.delete("/posts/:id/comments/:cid",(req,res)=>{
   
   let cid = req.params.cid;
   BlogComment.findByIdAndRemove(cid).then(err=>{
@@ -63,7 +79,7 @@ router.delete("/posts/:id/comments/:cid",middleware.isAdmin,(req,res)=>{
   //url:/blogs/new
   // Adding New Blog
   // Only Admin can Add new Blog
-router.post('/posts/new',middleware.isAdmin,(req, res) => {
+router.post('/posts/new',(req, res) => {
     console.log("Post Method Triggered");
     if (req.files) {
         let file = req.files.image;
@@ -85,15 +101,42 @@ router.post('/posts/new',middleware.isAdmin,(req, res) => {
     }
 }); 
 
+router.get('/:id/subBlogs/new',(req,res)=>{
+  var id = req.params.id;
+  res.render('../views/blogs/newSubBlog',{id});
+  
+})
+
+router.post('/:id/subBlogs/new',async(req,res)=>{
+  try {
+  
+  let subBlog = new SubBlog({title:req.body.title,content:req.body.content,image:req.body.image});
+  await subBlog.save();
+  console.log(subBlog);
+  console.log("----------succesfully created");
+  let blog = await Blog.findById(req.params.id);
+  
+  blog.subBlogs.push(subBlog);
+  await blog.save();
+  res.redirect('/blogs/posts/'+blog._id+"/comments");
+    
+  } catch (err) {
+    console.log(err.message);
+    
+  }
+})
 
 // deleting Blog ---only Admin can delete it
-router.get('/posts/:id/delete',middleware.isAdmin,cacheData.memoryCacheUse(36000),async (req,res)=>{
+router.get('/posts/:id/delete',cacheData.memoryCacheUse(36000),async (req,res)=>{
   console.log("Delete Method Triggered");
   let id = req.params.id;
   Blog.findById(id).then(blog=>{
     let toDel = path.join(__dirname,'../public/uploads/',blog.image);
     
     fs.unlinkSync(toDel);
+    blog.subBlogs.remove({},err=>{
+      console.log("SubBlogs Deleted");
+    });
   });
   try {
   await Blog.findByIdAndRemove(id);
@@ -167,13 +210,41 @@ router.get("/literature",cacheData.memoryCacheUse(36000),(req,res)=>{
     res.render('../views/blogs/literature',{blogs});
   })
 })
+router.get("/allblogs/try",async(req,res)=>{
+  axios.get('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40bailabollywood20')
+.then(response => {
+     let data = response.data.items[0];
+     res.render("../views/blogs/try",{data});
+})
+.catch(error => {
+     console.log(error);
+})
+});
 
 // All Blogs Combined
-router.get("/AllBlogs",cacheData.memoryCacheUse(36000),(req,res)=>{
-  Blog.find({}).sort({created:-1}).then(blogs=>{
-    res.render("../views/blogs/blogAll",{blogs});
-  })
+router.get("/AllBlogs",cacheData.memoryCacheUse(36000),async (req,res)=>{
+  var page = 1;
+  const limit = 4;
+  try{
+  const count = await Blog.countDocuments();
+  const totalPages = Math.ceil(count/limit);
+  if(req.query.page!=null)
+  page = req.query.page;
+  console.log(page);
+  if(page<=0)
+  page=1;
+  if(page>totalPages)
+  page=totalPages;
+  
+  const blogs = await Blog.find().limit(limit*1).skip((page-1)*limit).sort({created:-1}).exec();
+  
+  res.render('../views/blogs/blogAll',{blogs,totalPages,page});
+}
+catch(err){
+  console.log(err.message);
+}
 })
+
 
 
 module.exports = router;
