@@ -23,6 +23,10 @@ router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
     })
   })
 
+
+  router.get('/tags',(req,res)=>{
+    res.render("../views/blogs/tags");
+  })
   //url:/blogs/new
   // Posting new Blog
   // Only Admin can see this page
