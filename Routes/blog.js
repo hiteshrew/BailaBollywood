@@ -19,6 +19,7 @@ const SubBlog = require('../models/SubBlog');
 //  INdex page route
 router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
     Blog.find({}).then(blogs => {
+      
       res.render('../views/blogs/index',{blogs});
     })
   })
@@ -45,11 +46,12 @@ router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
     Blog.findById(id).populate("subBlogs").populate("comments").exec(function(err,blog){
       if(err)
       console.log(err);
-      
+      //console.log(blog.subBlogs[0].image);
+      console.log("----!"+blog.image+"!------");
       var subBlogz=blog.subBlogs;
-      subBlogz.forEach(function(subBlog){
-        console.log(subBlog.image);
-      })
+      //subBlogz.forEach(function(subBlog){
+      //  console.log(subBlog.image);
+      //})
       res.render('../views/blogs/show', {blog,subBlogz});
     });
 
@@ -92,8 +94,16 @@ router.post('/posts/new',(req, res) => {
             let sanitizedContent = req.sanitize(req.body.content);
             //console.log(sanitizedContent);
             console.log(req.body.tag+"-------------");
-            let blog = new Blog({ title: req.body.title ,tag:req.body.tag,image: req.files.image.name, content: sanitizedContent, creator: req.body.name })
+            let blog = new Blog({ 
+              title: req.body.title ,
+              tag:req.body.tag,
+              image: req.files.image.name,
+              thumbnail:req.files.image.name, 
+              content: sanitizedContent, 
+              creator: req.body.name })
+
             file.mv(`./public/uploads/${file.name}`, err => console.log(err ? 'Error on save the image!' : 'Image Uploaded!'));
+            
             blog.save().then(() => {
               console.log('Blog Saved!');
               res.redirect('/blogs');
@@ -101,7 +111,23 @@ router.post('/posts/new',(req, res) => {
         } // Finish mimetype statement
     } else {
       console.log('You must Upload a image-post!');
-      res.redirect('/blogs');
+      let sanitizedContent = req.sanitize(req.body.content);
+            //console.log(sanitizedContent);
+            console.log(req.body.tag+"-------------");
+            let blog = new Blog({ title: req.body.title ,
+              tag:req.body.tag,
+              image:"",
+              thumbnail:"", 
+              content: sanitizedContent, 
+              creator: req.body.name })
+            //file.mv(`./public/uploads/${file.name}`, err => console.log(err ? 'Error on save the image!' : 'Image Uploaded!'));
+            blog.save().then(() => {
+              console.log('Blog Saved!');
+              res.redirect('/blogs');
+            }).catch(err => console.log(err));
+
+
+      
     }
 }); 
 
@@ -115,11 +141,15 @@ router.post('/:id/subBlogs/new',async(req,res)=>{
   try {
   
   let subBlog = new SubBlog({title:req.body.title,content:req.body.content,image:req.body.image});
+  let img = req.body.image;
   await subBlog.save();
   console.log(subBlog);
   console.log("----------succesfully created");
   let blog = await Blog.findById(req.params.id);
-  
+  if(blog.thumbnail==="")
+  {
+    blog.thumbnail=subBlog.image;
+  }
   blog.subBlogs.push(subBlog);
   await blog.save();
   res.redirect('/blogs/posts/'+blog._id+"/comments");

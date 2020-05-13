@@ -24,7 +24,6 @@ const cacheData = require('./middleware/cacheData');
 const StateRoutes = require("./Routes/state");
 const InterviewRoutes = require('./Routes/interview');
 
-
 app.use(apiRoutes);
 const port =  3000;
 // sanitizing js for blog input

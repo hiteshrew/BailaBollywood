@@ -1,8 +1,6 @@
 <html>
 <head>
   <title>Blogs </title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
   <!----------------------------Navbar Css Files---------------------->
   <link rel="stylesheet" type="text/css" href="/stylesheets/navbar.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/index.css" />
@@ -161,6 +159,10 @@ a:hover,a{
 
 
 </style>
+<!------Boot Strap Files-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
 <script src="/scripts/spanish-to-english-translate.js"></script>
 </head>
 <body style="background:linear-gradient(to right,#ff5f6d,#f7b733);">
@@ -274,9 +276,7 @@ a:hover,a{
 
 <div class="container">
   <br>
-  <div style="text-align: center;">
-  <h1>Top Posts</h1>
-  </div>
+  
   <% blogs.forEach( blog => { %>
     <div class="container-fluid" style="margin-top: 50px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
  padding-bottom: 30px; padding-top:30px">
@@ -284,13 +284,22 @@ a:hover,a{
         <div class="col-xs-12 col-sm-12 col-md-7">
           <div class="container-fluid">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
-                <div class="image-wrapper"><img src="/uploads/<%= blog.image %>" /></div>
+                <div class="image-wrapper">
+                  <% if(blog.image.localeCompare("")==1){%>
+                    <h1>Blog</h1>
+                  <img src="/uploads/<%= blog.thumbnail %>" />
+                  <%} else {%>
+                    <h1>Sub Blog</h1>
+                    <h1><%=blog.subBlogs[0]%></h1>
+                    <img src="<%= blog.thumbnail %>"/>`
+                    <%}%>
+                </div>
                 <h2 class="title" data-cta="Get out there →"><%=blog.tag%></h2>
             </div></a>
-          </div>
+          
         </div>
         <div class="col-xs-12 col-sm-12 col-md-5 ">
-          <div class="container">
+          
           
             <div>
               <p ><span style="padding:5px;color:black; border:1px black solid"><%= blog.time %> </span></p>
@@ -303,7 +312,7 @@ a:hover,a{
             </div>
           </a>
         </div>
-        </div>
+        
       </div>
 
     </div>
