@@ -284,7 +284,16 @@ a:hover,a{
         <div class="col-xs-12 col-sm-12 col-md-7">
           <div class="container-fluid">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
-                <div class="image-wrapper"><img src="/uploads/<%= blog.image %>" /></div>
+                <div class="image-wrapper">
+                  <% if(blog.image.localeCompare("")==1){%>
+                    <h1>Blog</h1>
+                  <img src="/uploads/<%= blog.thumbnail %>" />
+                  <%} else {%>
+                    <h1>Sub Blog</h1>
+                    <h1><%=blog.subBlogs[0]%></h1>
+                    <img src="<%= blog.thumbnail %>"/>`
+                    <%}%>
+                </div>
                 <h2 class="title" data-cta="Get out there →"><%=blog.tag%></h2>
             </div></a>
           

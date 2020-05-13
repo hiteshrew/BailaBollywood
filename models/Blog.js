@@ -22,12 +22,13 @@ function date () {
 const BlogSchema = new Schema({
   
   title: {type: String, trim: true, required: true},
-  image: {type: String, required: true, unique: false, default: './public/assets/uploads/example.png'},
-  content: {type: String, required: true},
-  creator: {type: String, required: true},
+  image: {type: String,  unique: false},
+  content: {type: String},
+  creator: {type: String , default:"Baila Bollywood"},
   tag:{type:String , required:true},
   created:  {type: Date, default: Date.now},
   time: {type: String, default: date()},
+  thumbnail:{type:String, default:""},
   comments:[
     {
       type: mongoose.Schema.Types.ObjectId,
