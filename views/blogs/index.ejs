@@ -12,7 +12,7 @@
 
 :root {
   --src: url(https://images.unsplash.com/photo-1554620121-59e7f3f6e3a4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy);
-  --size: 50vmin;
+  --size: 350px;
   --space: 3vmin;
   --duration: 300ms;
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
@@ -35,8 +35,8 @@ body {
 .promo {
   position: relative;
   cursor: pointer;
-  width: var(--size);
-  height: var(--size);
+/*  width: var(--size);
+  height: var(--size);*/
 }
 
 .title {
@@ -89,9 +89,17 @@ body {
 {
   margin: auto;
   background-color: #ffffff;
-  height: 100vh;
+  margin-top: 50px;
   text-align: center;
 
+}
+
+.map-intro-container
+{
+  width: auto;
+  margin: auto;
+  background-color: #fff;
+  color: black;
 }
 
 .image-wrapper::after {
@@ -215,8 +223,21 @@ a:hover,a{
     </div>
   </nav>
 
-
+<div class="fluid-container map-intro-container">
+      <p class=" map-intro-spanish" style="color: black; font-size: 16px;">
+        Explore los bailes folclóricos indios a través del mapa indio, haga clic en los estados respectivos para explorar futhrer. 
+        <button onclick="spanToengMapIntro()" class="spanish-to-english d-inline btn btn-save float-right mt-4">Convert to
+            English</button>
+      </p>
+    
+      <p class=" map-intro-english" style="display: none; color: black; font-size: 16px;">
+       Explore the Indian folk dances through the Indian map, click on the respective states to explore futhrer.
+            <button onclick="engTospaMapIntro()" class="english-to-spanish d-inline btn btn-save float-right mt-4">Convert to
+            Spanish</button>
+        </p>
+  </div>
 <div class="map-container">
+
 <img src="/images/india-map-new.png" usemap="#image-map">
 
 <map name="image-map">
@@ -262,9 +283,9 @@ a:hover,a{
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-7">
           <div class="container-fluid">
-            <a href="#" class="article-links"><div class="promo" style="--overlay-color: hotpink">
+            <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
                 <div class="image-wrapper"><img src="/uploads/<%= blog.image %>" /></div>
-                <h2 class="title" data-cta="Get out there →">Title</h2>
+                <h2 class="title" data-cta="Get out there →"><%=blog.tag%></h2>
             </div></a>
           </div>
         </div>
