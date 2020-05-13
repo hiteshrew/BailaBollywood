@@ -24,6 +24,39 @@ const cacheData = require('./middleware/cacheData');
 const StateRoutes = require("./Routes/state");
 const InterviewRoutes = require('./Routes/interview');
 
+const mailjet = require ('node-mailjet')
+    .connect(keys.mailJet.apiKey, keys.mailJet.secretKey)
+const request = mailjet
+    .post("send", {'version': 'v3.1'})
+    .request({
+        "Messages":[
+                {
+                        "From": {
+                                "Email": "bailabollywood20@gmail.com",
+                                "Name": "Baila Bollywood"
+                        },
+                        "To": [
+                                {
+                                        "Email": "golusherawat@gmail.com",
+                                        "Name": "Yogesh"
+                                }
+                        ],
+                        "Subject": "Your email flight plan!",
+                        "TextPart": "Dear Yogesh, welcome to Mailjet! May the delivery force be with you!",
+                        "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!"
+                }
+        ]
+    })
+request
+    .then((result) => {
+        console.log(result.body)
+    })
+    .catch((err) => {
+        console.log(err.message);
+        console.log(err.statusCode)
+    })
+
+ 
 
 app.use(apiRoutes);
 const port =  3000;

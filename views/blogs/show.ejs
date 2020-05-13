@@ -81,7 +81,18 @@
 
   <!---------------Css file for responsiveness------------------>
   <link rel="stylesheet" type="text/css" href="/stylesheets/responsive-breakpoints.css" />
-
+  <style>
+    a{
+      color:black;
+    }
+    a:hover{
+      color:black;
+    }
+    body{
+      font-size: 18px;
+      font-weight: 700;
+    }
+  </style>
     
   </head>
 <body style="background:linear-gradient(to right,#ff5f6d,#f7b733);">
@@ -167,7 +178,7 @@
         <%subBlogz.forEach(function(subBlog){%>
           
           <div style="padding-top:20px; padding-bottom: 10px;">
-          <h4><%=subBlog.title%></h4>
+          <h4 style="font-weight: 1000;"><%=subBlog.title%></h4>
           </div>
          <% if(subBlog.image.localeCompare("")==1){%>
           <div class="text-center">
