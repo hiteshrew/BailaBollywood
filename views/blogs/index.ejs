@@ -1,13 +1,14 @@
 <html>
 <head>
   <title>Blogs </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
   <!----------------------------Navbar Css Files---------------------->
   <link rel="stylesheet" type="text/css" href="/stylesheets/navbar.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/index.css" />
 
 <style type="text/css">
 @import url("https://fonts.googleapis.com/css2?family=Sura:wght@400;700&display=swap");
-
 :root {
   --src: url(https://images.unsplash.com/photo-1554620121-59e7f3f6e3a4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy);
   --size: 350px;
@@ -16,11 +17,9 @@
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --bounce-out: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 * {
   box-sizing: border-box;
 }
-
 body {
   
   place-items: center;
@@ -29,17 +28,14 @@ body {
   color: white;
   background:linear-gradient(to right,#ff5f6d,#f7b733);
 }
-
 .promo {
   position: relative;
   cursor: pointer;
 /*  width: var(--size);
   height: var(--size);*/
 }
-
 .title {
   --font-size: calc(var(--size) / 8);
-
   display: flex;
   align-items: center;
   position: absolute;
@@ -52,7 +48,6 @@ body {
   transform: translate(-10%, -50%);
   transition: transform var(--duration) var(--ease-out);
 }
-
 .title::after {
   content: attr(data-cta);
   display: inline-block;
@@ -65,7 +60,6 @@ body {
   transition: transform var(--duration) var(--ease-out),
     opacity var(--duration) var(--ease-out);
 }
-
 .image-wrapper {
   width: var(--size);
   height: var(--size);
@@ -74,7 +68,6 @@ body {
   transition: transform var(--duration) var(--ease-out),
     clip-path var(--duration) var(--ease-out);
 }
-
 .image-wrapper img {
   position: relative;
   width: 120%;
@@ -89,9 +82,7 @@ body {
   background-color: #ffffff;
   margin-top: 50px;
   text-align: center;
-
 }
-
 .map-intro-container
 {
   width: auto;
@@ -99,7 +90,6 @@ body {
   background-color: #fff;
   color: black;
 }
-
 .image-wrapper::after {
   content: "";
   position: absolute;
@@ -113,28 +103,23 @@ body {
   transform: translateZ(0);
   transition: opacity var(--duration) var(--ease-out);
 }
-
 .promo:hover img {
   transform: translateX(0);
 }
-
 .promo:hover .image-wrapper {
   clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
   transform: translateX(25%);
   transition-timing-function: var(--bounce-out);
 }
-
 .promo:hover .title {
   transform: translate(5%, -50%);
   transition-timing-function: var(--bounce-out);
 }
-
 .promo:hover .title::after {
   opacity: 1;
   transform: translateX(0);
   transition-timing-function: var(--bounce-out);
 }
-
 .promo:hover .image-wrapper::after {
   opacity: 1;
 }
@@ -154,15 +139,7 @@ a:hover,a{
   font-weight: 600;
  
 }
-
-
-
-
 </style>
-<!------Boot Strap Files-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-
 <script src="/scripts/spanish-to-english-translate.js"></script>
 </head>
 <body style="background:linear-gradient(to right,#ff5f6d,#f7b733);">
@@ -276,7 +253,9 @@ a:hover,a{
 
 <div class="container">
   <br>
-  
+  <div style="text-align: center;">
+  <h1>Top Posts</h1>
+  </div>
   <% blogs.forEach( blog => { %>
     <div class="container-fluid" style="margin-top: 50px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
  padding-bottom: 30px; padding-top:30px">
@@ -285,21 +264,25 @@ a:hover,a{
           <div class="container-fluid">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
                 <div class="image-wrapper">
+                  
+
                   <% if(blog.image.localeCompare("")==1){%>
                     
-                  <img src="/uploads/<%= blog.thumbnail %>" />
-                  <%} else {%>
-                    
-                    <h1><%=blog.subBlogs[0]%></h1>
-                    <img src="<%= blog.thumbnail %>"/>`
-                    <%}%>
+                    <img src="/uploads/<%= blog.thumbnail %>" />
+                    <%} else {%>
+                  
+                      <img src="<%= blog.thumbnail %>"/>`
+                      <%}%>
+
+
+                  
                 </div>
                 <h2 class="title" data-cta="Get out there →"><%=blog.tag%></h2>
             </div></a>
-          
+          </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-5 ">
-          
+          <div class="container">
           
             <div>
               <p ><span style="padding:5px;color:black; border:1px black solid"><%= blog.time %> </span></p>
@@ -312,13 +295,11 @@ a:hover,a{
             </div>
           </a>
         </div>
-        
+        </div>
       </div>
-
     </div>
       
    
-
   <%   }); %>
  
 </div>

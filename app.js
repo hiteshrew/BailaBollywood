@@ -303,6 +303,9 @@ app.get("/auth/facebook/redirect", passport.authenticate('facebook', {
 app.use("/",StateRoutes);
 app.use("/blogs",BlogRoutes);
 app.use("/",InterviewRoutes);
+app.get('/try',(req,res)=>{
+  res.render('./socialHandle/index');
+})
 app.get('/sitemap.xml', cacheData.memoryCacheUse(36000),(req, res)=> {
   res.sendFile(path.join(__dirname,'/sitemap.xml'));
   });
