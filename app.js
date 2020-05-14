@@ -23,6 +23,7 @@ const methodOverride = require('method-override');
 const cacheData = require('./middleware/cacheData');
 const StateRoutes = require("./Routes/state");
 const InterviewRoutes = require('./Routes/interview');
+const socialHandleRoute = require('./Routes/social');
 
 app.use(apiRoutes);
 const port =  3000;
@@ -297,12 +298,15 @@ app.get("/auth/facebook/redirect", passport.authenticate('facebook', {
   res.redirect("/");
 });
 
+
+
 //app.get('/blogs',(req,res)=>{
 //  res.render('./blogs/index');
 //})
 app.use("/",StateRoutes);
 app.use("/blogs",BlogRoutes);
 app.use("/",InterviewRoutes);
+app.use("/",socialHandleRoute);
 app.get('/sitemap.xml', cacheData.memoryCacheUse(36000),(req, res)=> {
   res.sendFile(path.join(__dirname,'/sitemap.xml'));
   });
