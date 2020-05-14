@@ -140,6 +140,8 @@ a:hover,a{
   font-weight: 600;
  
 }
+
+
 </style>
 <!------Boot Strap Files-->
 
@@ -231,7 +233,7 @@ a:hover,a{
                 
                 
                 </div>
-                <h2 class="title" data-cta="Get out there →"></h2>
+                <h2 class="title" data-cta="Explora nuestro mundo →"></h2>
             </div></a>
           </div>
         </div>
@@ -245,7 +247,7 @@ a:hover,a{
              
              <p style="color:black; word-wrap:break-word;" class="target"><%= blog.content  %> .......</p>
             <a href="/blogs/posts/<%= blog._id %>"> 
-             <button class="read-more-btn" style="background:linear-gradient(to right,#ff5f6d,#f7b733); font-size:20px; border-radius: 10px; border:2px solid white"> Read More</button>
+             <button id="read-btn" class="read-more-btn" style="background:linear-gradient(to right,#ff5f6d,#f7b733); font-size:20px; border-radius: 10px; padding: 4px; border:2px solid white">Lee Mas</button>
             </div>
           </a>
         </div>
@@ -261,7 +263,7 @@ a:hover,a{
 
 
 
-<div class="container ">
+<div class="container">
   <h1 style="color:white; padding-top:50px; margin-bottom:20px; font-weight: bold;" class="text-center display-4">Latest Posts</h1>
   <%    latestBlogs.forEach(data=>{ if(data.index===1){ %>
       <div class="row d-flex justify-content-between">
