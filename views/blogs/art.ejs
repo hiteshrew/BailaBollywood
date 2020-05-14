@@ -218,17 +218,30 @@ a:hover,a{
 
 <div class="container">
   <br>
-  <div style="text-align: center;">
-  <h1>Top Posts</h1>
-  </div>
+  
   <% blogs.forEach( blog => { %>
     <div class="container-fluid" style="margin-top: 50px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
  padding-bottom: 30px; padding-top:30px">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-7">
           <div class="container-fluid">
-            <a href="" class="article-links"><div class="promo" style="--overlay-color: hotpink">
-                <div class="image-wrapper"><img src="/uploads/<%= blog.image %>" /></div>
+            <a href="/blogs/posts/<%=blog._id%>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
+                <div class="image-wrapper">
+                  
+                  
+                  
+                  <% if(blog.image.localeCompare("")==1){%>
+                    
+                    <img src="/uploads/<%= blog.thumbnail %>" />
+                    <%} else {%>
+                      
+                      
+                      <img src="<%= blog.thumbnail %>"/>`
+                      <%}%>
+                
+                
+                
+                </div>
                 <h2 class="title" data-cta="Get out there →">Title</h2>
             </div></a>
           </div>

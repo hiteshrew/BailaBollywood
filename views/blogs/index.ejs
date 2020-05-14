@@ -140,6 +140,8 @@ a:hover,a{
   font-weight: 600;
  
 }
+
+
 </style>
 <!------Boot Strap Files-->
 
@@ -212,15 +214,30 @@ a:hover,a{
     <div class="container-fluid" style="margin-top: 50px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
  padding-bottom: 30px; padding-top:30px">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-7">
+        <div class="col-12 col-sm-12 col-md-7">
           <div class="container-fluid">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
-                <div class="image-wrapper"><img src="/uploads/<%= blog.image %>" /></div>
-                <h2 class="title" data-cta="Get out there →"><%=blog.tag%></h2>
+                <div class="image-wrapper">
+                  
+                  <% if(blog.image.localeCompare("")==1){%>
+                    
+                    <img src="/uploads/<%= blog.thumbnail %>" />
+                    <%} else {%>
+                      
+                      
+                      <img src="<%= blog.thumbnail %>"/>`
+                      <%}%>
+                  
+                  
+                
+                
+                
+                </div>
+                <h2 class="title" data-cta="Explora nuestro mundo →"></h2>
             </div></a>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-5 ">
+        <div class="col-12 col-sm-12 col-md-5 ">
           <div class="container">
           
             <div>
@@ -230,7 +247,7 @@ a:hover,a{
              
              <p style="color:black; word-wrap:break-word;" class="target"><%= blog.content  %> .......</p>
             <a href="/blogs/posts/<%= blog._id %>"> 
-             <button class="read-more-btn" style="background:linear-gradient(to right,#ff5f6d,#f7b733); font-size:20px; border-radius: 10px; border:2px solid white"> Read More</button>
+             <button id="read-btn" class="read-more-btn" style="background:linear-gradient(to right,#ff5f6d,#f7b733); font-size:20px; border-radius: 10px; padding: 4px; border:2px solid white">Lee Mas</button>
             </div>
           </a>
         </div>
@@ -244,10 +261,42 @@ a:hover,a{
  
 </div>
 
+
+
+<div class="container">
+  <h1 style="color:white; padding-top:50px; margin-bottom:20px; font-weight: bold;" class="text-center display-4">Latest Posts</h1>
+  <%    latestBlogs.forEach(data=>{ if(data.index===1){ %>
+      <div class="row d-flex justify-content-between">
+          
+      <%}if(data.check===0){%>
+          <div class="col-12 col-md-4 my-2">
+            <a href="<%=data.url%>">
+          <img  src = "/uploads/<%= data.thumbnail %>" alt="image" style="width:100%; height:250px;">
+        </a>
+          <p style="color:grey;font-weight: bolder;"><%=data.title%><br><span style="color:white;">Category-<%=data.tag%></span></p>
+        
+      </div>
+  
+      <%}else{%>
+          <div class="col-12 col-md-4 my-2">
+            <a href="<%=data.url%>">
+          <img src = "<%=data.thumbnail%>" alt="image" style="width:100%; height:250px;">
+        </a>
+          <p style="color:grey;font-weight: bolder;"><%=data.title%><br><span style="color:white;">Category-<%=data.tag%></span></p>
+        
+      </div>
+      <%}if(data.index===3){%>
+      </div> 
+  <%}})%>
+
+  
+</div>
+
+
 <script>
   $(".target").each(function(){
     let text = ( $(this).text());
-    text = text.substring(0,200);
+    text = text.substring(0,100);
     let html = $.parseHTML(text);
     $(this).empty();
     $(this).append(html);

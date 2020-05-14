@@ -17,10 +17,44 @@ const SubBlog = require('../models/SubBlog');
 
 // url:/blogs
 //  INdex page route
-router.get('/',cacheData.memoryCacheUse(36000), (req, res) => {
+router.get('/', (req, res) => {
     Blog.find({}).then(blogs => {
+  
+      let latestBlogs = [];
+      let topBlogs = [];
+      let length = blogs.length;
+      let len = length-8;
+      let i=0;
+      let c=0;
+      let check=0;
+      blogs.forEach(function(blog){
+        i++;
+        if(i<=4)
+        {
+          topBlogs.push(blog);
+        }
+        if(i>=len){
+          c++;
+        if(blog.image==="")
+        check=1;
+        else{
+          check=0;
+        }
+        console.log(blog.time);
+        let title = blog.title;
+        let thumbnail = blog.thumbnail;
+        let tag = blog.tag;
+        let index = c%3;
+        let url = "/blogs/posts/"+blog._id;
+        console.log(url);
+        if(index===0)
+        index=3;
+        let obj = {title:title,thumbnail:thumbnail,tag:tag,index:index,check:check,url:url};
+        latestBlogs.push(obj);
+      }
+      })
       
-      res.render('../views/blogs/index',{blogs});
+      res.render('../views/blogs/index',{blogs:topBlogs,latestBlogs});
     })
   })
 
@@ -215,6 +249,7 @@ router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
 router.get("/bollywood",cacheData.memoryCacheUse(36000),(req,res)=>{
   
   Blog.find({tag:"Bollywood"}).sort({created:-1}).then(blogs => {
+    
     res.render('../views/blogs/bollywood',{blogs});
   })
 })
