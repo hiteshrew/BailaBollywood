@@ -1,8 +1,9 @@
 <html>
 <head>
   <title>Blogs </title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
   <!----------------------------Navbar Css Files---------------------->
   <link rel="stylesheet" type="text/css" href="/stylesheets/navbar.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/index.css" />
@@ -11,7 +12,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sura:wght@400;700&display=swap");
 :root {
   --src: url(https://images.unsplash.com/photo-1554620121-59e7f3f6e3a4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy);
-  --size: 350px;
+  --size: 400px;
   --space: 3vmin;
   --duration: 300ms;
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
@@ -140,6 +141,9 @@ a:hover,a{
  
 }
 </style>
+<!------Boot Strap Files-->
+
+
 <script src="/scripts/spanish-to-english-translate.js"></script>
 </head>
 <body style="background:linear-gradient(to right,#ff5f6d,#f7b733);">
@@ -253,30 +257,14 @@ a:hover,a{
 
 <div class="container">
   <br>
-  <div style="text-align: center;">
-  <h1>Top Posts</h1>
-  </div>
-  <% blogs.forEach( blog => { %>
+   <% blogs.forEach( blog => { %>
     <div class="container-fluid" style="margin-top: 50px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
  padding-bottom: 30px; padding-top:30px">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-7">
           <div class="container-fluid">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
-                <div class="image-wrapper">
-                  
-
-                  <% if(blog.image.localeCompare("")==1){%>
-                    
-                    <img src="/uploads/<%= blog.thumbnail %>" />
-                    <%} else {%>
-                  
-                      <img src="<%= blog.thumbnail %>"/>`
-                      <%}%>
-
-
-                  
-                </div>
+                <div class="image-wrapper"><img src="/uploads/<%= blog.image %>" /></div>
                 <h2 class="title" data-cta="Get out there →"><%=blog.tag%></h2>
             </div></a>
           </div>
@@ -298,6 +286,7 @@ a:hover,a{
         </div>
       </div>
     </div>
+      
       
    
   <%   }); %>
