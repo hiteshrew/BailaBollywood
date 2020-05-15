@@ -307,6 +307,9 @@ app.use("/",StateRoutes);
 app.use("/blogs",BlogRoutes);
 app.use("/",InterviewRoutes);
 app.use("/",socialHandleRoute);
+app.get('/test',(req,res)=>{
+  res.render("test");
+})
 app.get('/sitemap.xml', cacheData.memoryCacheUse(36000),(req, res)=> {
   res.sendFile(path.join(__dirname,'/sitemap.xml'));
   });

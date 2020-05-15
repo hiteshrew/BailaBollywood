@@ -19,7 +19,7 @@ const SubBlog = require('../models/SubBlog');
 //  INdex page route
 router.get('/', (req, res) => {
     Blog.find({}).then(blogs => {
-  
+      
       let latestBlogs = [];
       let topBlogs = [];
       let length = blogs.length;
@@ -46,7 +46,6 @@ router.get('/', (req, res) => {
         let tag = blog.tag;
         let index = c%3;
         let url = "/blogs/posts/"+blog._id;
-        console.log(url);
         if(index===0)
         index=3;
         let obj = {title:title,thumbnail:thumbnail,tag:tag,index:index,check:check,url:url};
@@ -295,6 +294,7 @@ router.get("/AllBlogs",cacheData.memoryCacheUse(36000),async (req,res)=>{
   var page = 1;
   const limit = 4;
   try{
+    /*
   const count = await Blog.countDocuments();
   const totalPages = Math.ceil(count/limit);
   if(req.query.page!=null)
@@ -306,8 +306,9 @@ router.get("/AllBlogs",cacheData.memoryCacheUse(36000),async (req,res)=>{
   page=totalPages;
   
   const blogs = await Blog.find().limit(limit*1).skip((page-1)*limit).sort({created:-1}).exec();
-  
-  res.render('../views/blogs/blogAll',{blogs,totalPages,page});
+  */
+ const blogs = await Blog.find({});
+  res.render('../views/blogs/blogAll',{blogs});
 }
 catch(err){
   console.log(err.message);
