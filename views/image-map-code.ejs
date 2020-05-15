@@ -2,16 +2,9 @@
 <html lang="es">
 <head>
   <title>India: sus estados y sus danzas</title>
-
-  	<style type="text/css">
-		.div-container{
-			margin: auto;
-			text-align: center;
-		}
-	</style>
       <meta charset="UTF-8">
   <!--Title of the Website-->
-
+ 
   <!--Meta tag that tells browser to not translate page to english (Preferably chrome)-->
   <meta name="google" content="notranslate" />
   <!--Meta tags for SEO-->
@@ -21,7 +14,6 @@
     content="Explora los bailes y danzas folklóricas de la India con BailaBollywood. Los bailes folclóricos de la India son el resultado de la mezcla  de sus tradiciones y la religiosidad. Son parte tan importante de la cultura india que se han adoptados en las películas de Bollywood." />
   <meta name="robots" content="index, follow" />
   <!--Meta tag for Responsiveness-->
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <!--Meta tag for google site verification-->
   <meta name="google-site-verification" content="86RNMqD2_RNqFP-WmWf9pmzSbjEz_RQMLAnS8yhKQpg" />
   
@@ -35,6 +27,7 @@
 <meta itemprop="name" content="India: sus estados y sus danzas">
 
 <meta itemprop="image" content="https://pbs.twimg.com/media/EQlEz7pW4AAKwC4.jpg">
+
 
 <!-- Primary Meta Tags -->
 
@@ -79,19 +72,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                            
 
-                           <!--Web app manfest file for android devices
+                      <!--Web app manfest file for android devices
                           <link rel="manifest" href="manifest.json" />
-                          <meta name="theme-color" content="#373B44" />
+                      <meta name="theme-color" content="#373B44" />
                           <link rel="apple-touch-icon" href="/images/baila-bollywood-icon.png" />
                           <meta name="apple-mobile-web-app-status-bar" content="#373B44" />
                           -->
                           
 <style type="text/css">
 .fluid-container{
-  max-width: 1200px;    
   background-color: #f4f4f4;
   text-align: center;
-  margin: auto;
+  width: 100%;
   padding: 6px;
   font-size: 20px;
   border: 4px solid rgba(247, 183, 51, 1);
@@ -107,9 +99,13 @@
   margin-bottom: 50px;
   text-align: center;
 }
+
+
    </style>
 
        <script src="/scripts/spanish-to-english-translate.js"></script>
+       <script src="/scripts/jquery.rwdImageMaps.min.js"></script>
+
 
 </head>
 <body>
@@ -117,7 +113,7 @@
     
  <!------------------------------------Navigation Bar Section-One------------------------------------------>
 
-  <nav id="nav-header" class="navbar navbar-expand-lg navbar-light sticky-top  ">
+  <nav id="nav-header" class="navbar navbar-expand-lg navbar-light sticky-top  " >
     <a class="navbar-brand p-0 m-0" href="/"><img src="/images/Spanish-bolo-natraj-transparent.png" class="logo-navbar"
         alt="Logo Of Baila Bollywood"></a>
     <button class="navbar-toggler mr-3  " type="button" data-toggle="collapse"
@@ -154,6 +150,9 @@
             <li class="nav-item m-xl-2">
               <a class="nav-link text-center font-weight-bold " href="/equipo">Equipo</a>
             </li>
+             <li class="nav-item m-xl-2">
+              <a class="nav-link text-center font-weight-bold " href="/blogs">Blogs</a>
+            </li>
             
           </ul>
       <form class="form-inline  log-reg-btn ml-xl-5 ml-lg-5  justify-content-center">
@@ -172,7 +171,7 @@
     </div>
   </nav>
 
-<div class="fluid-container ">
+<div class="fluid-container">
       <p class=" map-intro-spanish" style="color: black; font-size: 16px;">
         Explore los bailes folclóricos indios a través del mapa indio, haga clic en los estados respectivos para explorar futhrer. 
         <button onclick="spanToengMapIntro()" class="spanish-to-english d-inline btn btn-save float-right mt-4">Convert to
@@ -185,6 +184,7 @@
             Spanish</button>
         </p>
   </div>
+
 <div class="map-container">
 
 <img src="/images/india-map-new.png" usemap="#image-map">
@@ -219,7 +219,9 @@
     <area target="_blank" alt="Tamil Nadu" title="Tamil Nadu" href="/tamil-nadu" coords="265,600,265,613,268,620,272,628,273,639,269,657,277,670,293,662,301,648,311,646,313,627,324,622,331,615,334,596,337,574,343,558,331,552,310,558,293,564,281,579,276,591,263,592,252,588" shape="poly">
     <area target="_blank" alt="Nagaland" title="Nagaland" href="/nagaland" coords="617,268,609,264,617,256,628,248,631,240,645,237,650,237,647,250,645,258,641,263" shape="poly">
 </map>
+
 </div>
+
 
 <section class="baila-section section-six">
       <div class="container-fluid">
@@ -272,8 +274,6 @@
       <br />
       &copy; 2020 Copyright BailaBollywood<img src="/images/Spanish-bolo-natraj-transparent.png" alt="Spanish Bolo">
   </div>
-
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
       crossorigin="anonymous"></script>
@@ -283,5 +283,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
+
+<script>
+      $(document).ready(function(e) {
+      $('img[usemap]').rwdImageMaps();
+    });
+      </script>
 </body>
 </html>
