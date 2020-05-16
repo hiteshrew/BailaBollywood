@@ -11,16 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style type="text/css">
-:root {
-  --duration: 300ms;
-  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
-  --bounce-out: cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.promo {
-  position: relative;
-  cursor: pointer;
-}
-#top-post-container{
+.container-fluid {
     width: 80%;
     border: 2px solid #d2d2d2;
     margin-top: 50px;
@@ -29,37 +20,19 @@
     padding-left: 0px;
     padding-right: 0px;
 }
-.image-wrapper
-{
-    overflow: hidden;
-  clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 0 50%, 0% 0%);
-  transition: transform var(--duration) var(--ease-out),
-    clip-path var(--duration) var(--ease-out);
-}
+
+=======
+
+
 .image-wrapper img {
     width: 100%;
-  transform: translateX(-10%);
-  transition: transform var(--duration) var(--ease-out);
 }
-.image-wrapper::after {
-  background-color: var(--overlay-color);
-  mix-blend-mode: multiply;
-  opacity: 0;
-  transform: translateZ(0);
-  transition: opacity var(--duration) var(--ease-out);
-}
-.promo:hover img {
-  transform: translateX(0);
-}
-.promo:hover .image-wrapper {
-  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-  transform: translateX(25%);
-  transition-timing-function: var(--bounce-out);
-}
+
 #lt-blog p {
     padding-top: 10px;
-}	
-	
+} 
+  
+
 button#read-btn:hover {
     background: #000;
     color: #fff;
@@ -67,17 +40,20 @@ button#read-btn:hover {
 button#read-btn {
     background: transparent;
     font-size: 20px;
-    padding: 8px 40px;
+    padding: 10px 40px;
     border: 2px solid black;
+
     color: #000;
 }
 div#lt-blog p span {
     color: #a9a9a9;
 }
-#footer-section
-{
-  width: 100%;
-}
+
+=======
+
+
+
+
 </style>
 <!------Boot Strap Files-->
 
@@ -144,14 +120,14 @@ div#lt-blog p span {
     </div>
   </nav>
 
-
+<h1 style="padding-top:70px; margin-bottom:20px; font-weight: bold;" class="text-center display-4">Lo más destacado </h1>
     <% blogs.forEach( blog => { %>
 <div class="container-fluid" id="top-post-container">
-      <div class="row" style= "padding: 20px 0px; padding-bottom:10px;">
+      <div class="row" style= "padding: 10px 0px;">
         <div class="col-12 col-sm-12 col-md-5">
           <div class="container">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
-                <div class="image-wrapper">
+                <div class="image-wrapper" >
               
                     
                   <% if(blog.image.localeCompare("")==1){%>
@@ -180,7 +156,7 @@ div#lt-blog p span {
              
              <p style="color:black; word-wrap:break-word;" class="target"><%=blog.content%></p>
             <a href="/blogs/posts/<%= blog._id %>"> 
-             <button id="read-btn" class="read-more-btn" >Lee Mas</button>
+             <button id="read-btn" class="read-more-btn">Ver Más</button>
             </a></div><a href="/blogs/posts/<%= blog._id %>">
           </a>
         </div>
@@ -191,7 +167,7 @@ div#lt-blog p span {
     
     
 	<div class="container grid-layout">
-    <h1 style="padding-top:70px; margin-bottom:20px; font-weight: bold;" class="text-center display-4">Latest Posts</h1>
+    <h1 style="padding-top:70px; margin-bottom:20px; font-weight: bold;" class="text-center display-4">Últimas publicaciones</h1>
     <%    latestBlogs.forEach(data=>{ if(data.index===1){ %>
         <div class="row d-flex justify-content-between">
             
@@ -223,10 +199,11 @@ div#lt-blog p span {
 	
 		
 	
-<div id="footer-section">
-  
-<section class="baila-section section-six">
-      <div class="container-fluid">
+
+ <section class="baila-section section-six">
+      <div class="container-fluid" style="width: 100%; padding: 0;
+      margin: 0;">
+
         <div class="row footer-row">
           <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 footer-left ">
             <div id="logo-float">            
@@ -263,7 +240,9 @@ div#lt-blog p span {
           </div>
         </div>
       </div>
- </section>
+
+    </section>
+  
     <div class="footer-section ">
     <i style="color:#fff"class="fa mr-3 d-block fa-flag-checkered"></i>
       Website Made With &hearts; By <div style="line-height: 48px;"><a href=" https://www.linkedin.com/in/vaibhav-kaul-ab5941182/"
@@ -274,7 +253,10 @@ div#lt-blog p span {
       <br />
       &copy; 2020 Copyright BailaBollywood<img src="/images/Spanish-bolo-natraj-transparent.png" alt="Spanish Bolo">
   </div>
-</div>
+
+
+
+
 	<script>
   $(".target").each(function(){
     let text = ( $(this).text());
