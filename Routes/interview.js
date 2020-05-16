@@ -11,8 +11,8 @@ router.get("/interviews/index",(req,res) => {
     res.render("../views/interview/index");
   });
 
-router.get("/interviews/interview2",(req,res)=>{
-    res.render("../views/interview/interview2.ejs");
+router.get("/interviews/posts/new",(req,res)=>{
+    res.render("../views/interview/new.ejs");
 })
  
   
