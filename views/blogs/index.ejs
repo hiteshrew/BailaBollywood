@@ -23,17 +23,23 @@
  body
  {
   background:linear-gradient(to right,#ff5f6d,#f7b733);
+      font-family: 'Roboto Condensed', sans-serif;
+
  }
 .container-fluid {
     width: 80%;
     margin-top: 50px;
 }
+
+
+
 .col-12.col-sm-12.col-md-5, .col-12.col-sm-12.col-md-7 {
     padding-left: 0px;
     padding-right: 0px;
 }
 .image-wrapper img {
     width: 100%;
+    height: 100%;
 }
 #lt-blog p {
     padding-top: 10px;
@@ -53,6 +59,8 @@ button#read-btn {
 div#lt-blog p span {
     color: #a9a9a9;
 }
+
+
 </style>
 
 <!------Boot Strap Files-->
@@ -75,32 +83,32 @@ div#lt-blog p span {
     </button>
 
    <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
-          <ul class="navbar-nav nav nav-pills ">
+          <ul class="navbar-nav nav nav-pills " >
             <li class="nav-item m-xl-2 active">
-              <a class="nav-link text-center font-weight-bold " href="/">Inicio </a>
+              <a class="nav-link text-center"  href="/">Inicio </a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/#about">
+              <a class="nav-link text-center" href="/#about">
                 Quiénes Somos
                 </a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/#blogs">Nuestro Blog</a>
+              <a class="nav-link text-center" href="/#blogs">Nuestro Blog</a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/#pop-categ">Lo más Popular</a>
+              <a class="nav-link text-center " href="/#pop-categ">Lo más Popular</a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/#found-note">Nuestro Fundador </a>
+              <a class="nav-link text-center " href="/#found-note">Nuestro Fundador </a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/danzas-folkloricas-de-India">Danzas folclóricas</a>
+              <a class="nav-link text-center " href="/danzas-folkloricas-de-India">Danzas folclóricas</a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/equipo">Equipo</a>
+              <a class="nav-link text-center " href="/equipo">Equipo</a>
             </li>
             <li class="nav-item m-xl-2">
-              <a class="nav-link text-center font-weight-bold " href="/blogs">Blogs</a>
+              <a class="nav-link text-center" href="/blogs">Blogs</a>
             </li>
             
           </ul>
@@ -124,7 +132,7 @@ div#lt-blog p span {
 <h1 style="padding-top:70px; margin-bottom:20px; font-weight: bold; color: white;" class="text-center display-4">Lo más destacado </h1>
     <% blogs.forEach( blog => { %>
 <div class="container-fluid" id="top-post-container" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);">
-      <div class="row" style= "padding: 10px 0px;">
+      <div class="row" style= "padding: 10px;">
         <div class="col-12 col-sm-12 col-md-5">
           <div class="container">
             <a href="/blogs/posts/<%= blog._id %>" class="article-links"><div class="promo" style="--overlay-color: hotpink">
@@ -147,7 +155,7 @@ div#lt-blog p span {
             </div></a>
           </div>
         </div>
-        <div class="col-12 col-sm-12 col-md-7" style="padding-top: 20px;"> 
+        <div class="col-12 col-sm-12 col-md-7" style="padding:20px;"> 
           <div class="container" style="width: 70%;">
           
             <div>
