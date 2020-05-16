@@ -59,8 +59,11 @@ button#read-btn {
 div#lt-blog p span {
     color: #a9a9a9;
 }
+.nav-link
+{
+  font-family: 'Titillium Web',sans-serif;
 
-
+}
 </style>
 
 <!------Boot Strap Files-->
@@ -166,7 +169,7 @@ div#lt-blog p span {
              <p style="color:black; word-wrap:break-word;" class="target"><%=blog.content%></p>
             <a href="/blogs/posts/<%= blog._id %>"> 
              
-             <button id="read-btn" class="read-more-btn" style="background:linear-gradient(to right,#ff5f6d,#f7b733); font-size:20px; border-radius: 10px; padding-left: 40px; padding-right: 40px; padding-bottom: 30px; border:3px solid white">Ver Más</button>
+             <button id="read-btn" class="read-more-btn" style="background:linear-gradient(to right,#ff5f6d,#f7b733); font-size:20px; border-radius: 10px; padding: 20px; padding-bottom: 30px; padding-top: 5px; border:3px solid white">Ver Más</button>
             </a></div><a href="/blogs/posts/<%= blog._id %>">
           </a>
         </div>
