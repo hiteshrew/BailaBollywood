@@ -30,5 +30,9 @@ router.get("/equipo",(req,res) => {
   router.get("/orrisa", cacheData.memoryCacheUse(36000),(req,res) => {
     res.render("../views/states/orrisa.ejs")
   });
+
+   router.get("/haryana", cacheData.memoryCacheUse(36000),(req,res) => {
+    res.render("../views/states/haryana.ejs")
+  });
   
   module.exports=router;
