@@ -27,8 +27,8 @@ router.get("/equipo",(req,res) => {
   router.get("/punjab", cacheData.memoryCacheUse(36000),(req,res) => {
     res.render("../views/states/punjab.ejs")
   });
-  router.get("/orissa", cacheData.memoryCacheUse(36000),(req,res) => {
-    res.render("../views/states/orissa.ejs")
+  router.get("/orrisa", cacheData.memoryCacheUse(36000),(req,res) => {
+    res.render("../views/states/orrisa.ejs")
   });
   
   module.exports=router;
