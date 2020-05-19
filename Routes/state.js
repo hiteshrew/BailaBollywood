@@ -37,5 +37,9 @@ router.get("/equipo",(req,res) => {
     router.get("/madhya-pradesh", cacheData.memoryCacheUse(36000),(req,res) => {
     res.render("../views/states/madhya-pradesh.ejs")
   });
+      router.get("/west-bengal", cacheData.memoryCacheUse(36000),(req,res) => {
+    res.render("../views/states/bengal.ejs")
+  });
+  
   
   module.exports=router;
