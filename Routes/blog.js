@@ -3,7 +3,7 @@ const router = express.Router();
 const Blog = require('../models/Blog');
 const fs = require('fs');
 const path = require('path');
-const BlogComment = require('../models/BlogComment');
+const Comment = require('../models/Comment');
 const middleware = require('../middleware');
 const cacheData = require('../middleware/cacheData');
 const axios = require('axios');
@@ -17,30 +17,30 @@ const SubBlog = require('../models/SubBlog');
 
 // url:/blogs
 //  INdex page route
-router.get('/', (req, res) => {
-    Blog.find({}).then(blogs => {
-      
-      let latestBlogs = [];
-      let topBlogs = [];
-      let length = blogs.length;
-      let len = length-8;
-      let i=0;
-      let c=0;
-      let check=0;
-      blogs.forEach(function(blog){
-        i++;
-        if(i<=4)
-        {
-          topBlogs.push(blog);
-        }
-        if(i>=len){
-          c++;
-        if(blog.image==="")
+router.get('/', async(req, res) => {
+  try {
+    let latestBlogs = [];
+    let topBlogs = [];
+    let i=0;
+    let blogz = await Blog.find({});
+    blogz.forEach(blg=>{
+      i++;
+      if(i<=4)
+      topBlogs.push(blg);
+    })
+    let blogs = await Blog.find({}).sort({created:-1});
+    let length = blogs.length;
+    
+    let c=0;
+    let check=0;
+    blogs.forEach(blog=>{
+      c++;
+      if(c<=9){
+      if(blog.image==="")
         check=1;
         else{
           check=0;
         }
-        console.log(blog.time);
         let title = blog.title;
         let thumbnail = blog.thumbnail;
         let tag = blog.tag;
@@ -51,10 +51,20 @@ router.get('/', (req, res) => {
         let obj = {title:title,thumbnail:thumbnail,tag:tag,index:index,check:check,url:url};
         latestBlogs.push(obj);
       }
-      })
       
+      });
+        
       res.render('../views/blogs/index',{blogs:topBlogs,latestBlogs});
-    })
+
+
+    
+    
+  } catch (error) {
+    console.log(err.message);
+    
+  }
+    
+    
   })
 
 
@@ -73,7 +83,60 @@ router.get('/', (req, res) => {
 
   //url:/blogs/:id
   // getting individual Post
-  router.get('/posts/:id',cacheData.memoryCacheUse(36000), async (req, res) => {
+  router.get('/posts/:id', async (req, res) => { 
+    try {
+      var blogs = await Blog.find({});
+      var totalNumber = await blogs.length;
+      console.log('totalNumber:'+totalNumber);
+      let id = req.params.id;
+      let blog = await Blog.findById(id).populate('subBlogs').populate('comments');
+      var subBlogz=blog.subBlogs;
+      var commentz = blog.comments;
+      console.log(blog.number);
+      let a = blog.number+1;
+      let b = blog.number-1;
+      let next , prev ,nextId ,prevId;
+      nextId=0;
+      prevId=0;
+      
+      if(blog.number===1){
+        next = await Blog.find({number:a});
+        nextId = next[0]._id;
+        
+      }
+      else if(blog.number===totalNumber){
+        prev = await Blog.find({number:b});
+        prevId = prev[0]._id;
+      }
+
+      
+      else{
+      next = await Blog.find({number:a});
+      prev = await Blog.find({number:b});
+      nextId = next[0]._id;
+      prevId = prev[0]._id;
+      }
+      
+      
+      console.log(nextId);
+      console.log(prevId);
+      
+      res.render('../views/blogs/show', {blog,subBlogz,commentz,nextId,prevId});
+      
+    } catch (error) {
+      console.log(error.message);
+      
+    }
+  });
+  
+    
+
+    
+
+
+
+  // Only Admin can see the comments
+  router.get('/posts/:id/admin',cacheData.memoryCacheUse(36000),(req,res)=>{
     let id = req.params.id;
     
     Blog.findById(id).populate("subBlogs").populate("comments").exec(function(err,blog){
@@ -85,19 +148,7 @@ router.get('/', (req, res) => {
       //subBlogz.forEach(function(subBlog){
       //  console.log(subBlog.image);
       //})
-      res.render('../views/blogs/show', {blog,subBlogz});
-    });
-
-  });
-
-  // Only Admin can see the comments
-  router.get('/posts/:id/comments',cacheData.memoryCacheUse(36000),(req,res)=>{
-    let id = req.params.id;
-    
-    Blog.findById(id).populate("comments").exec(function(err,blog){
-      if(err)
-      console.log(err);
-      res.render('../views/blogs/show2', {blog});
+      res.render('../views/blogs/adminShow', {blog,subBlogz});
     });
   })
 
@@ -106,7 +157,7 @@ router.get('/', (req, res) => {
 router.delete("/posts/:id/comments/:cid",(req,res)=>{
   
   let cid = req.params.cid;
-  BlogComment.findByIdAndRemove(cid).then(err=>{
+  Comment.findByIdAndRemove(cid).then(err=>{
     
       res.redirect("back");
     
@@ -170,28 +221,7 @@ router.get('/:id/subBlogs/new',(req,res)=>{
   
 })
 
-router.post('/:id/subBlogs/new',async(req,res)=>{
-  try {
-  
-  let subBlog = new SubBlog({title:req.body.title,content:req.body.content,image:req.body.image});
-  let img = req.body.image;
-  await subBlog.save();
-  console.log(subBlog);
-  console.log("----------succesfully created");
-  let blog = await Blog.findById(req.params.id);
-  if(blog.thumbnail==="")
-  {
-    blog.thumbnail=subBlog.image;
-  }
-  blog.subBlogs.push(subBlog);
-  await blog.save();
-  res.redirect('/blogs/posts/'+blog._id+"/comments");
-    
-  } catch (err) {
-    console.log(err.message);
-    
-  }
-})
+
 
 // deleting Blog ---only Admin can delete it
 router.get('/posts/:id/delete',cacheData.memoryCacheUse(36000),async (req,res)=>{
@@ -202,6 +232,8 @@ router.get('/posts/:id/delete',cacheData.memoryCacheUse(36000),async (req,res)=>
     
     fs.unlinkSync(toDel);
     blog.subBlogs.remove({},err=>{
+      if(err)
+      console.log(err.message);
       console.log("SubBlogs Deleted");
     });
   });
@@ -216,33 +248,7 @@ router.get('/posts/:id/delete',cacheData.memoryCacheUse(36000),async (req,res)=>
   }
 })
 
-// Post route for adding new comment on individual Blog
-// url:/blogs/posts/:id
-router.post('/posts/:id',middleware.isLoggedIn,(req,res)=>{
-  let id = req.params.id;
-  //console.log(req.user);
-  //console.log("post method triggered");
-  Blog.findById(id).then(blog=>{
-    BlogComment.create(req.body.comment).then(blogcomment=>{
-      //comment out below statement when middleware is applied
-      blogcomment.author.id=req.user._id;
-      blogcomment.author.username = req.user.username;
-      blogcomment.save();
-     // console.log(blogcomment);
-      blog.comments.push(blogcomment);
-      //console.log(blog.comments);
-      blog.save();
-      //req.flash("success","Succesfully Added Comment")
-      res.redirect('/blogs/posts/'+blog._id);
 
-    }).catch(err=>{
-      console.log(err);
-    })
-  }).catch(err=>{
-    console.log(err);
-  })
-  
-})
 
 // bollywood blog index page
 router.get("/bollywood",cacheData.memoryCacheUse(36000),(req,res)=>{
@@ -254,27 +260,27 @@ router.get("/bollywood",cacheData.memoryCacheUse(36000),(req,res)=>{
 })
 // Folk Dance Blog Index Page
 router.get("/folkDance",cacheData.memoryCacheUse(36000),(req,res)=>{
-  Blog.find({tag:"Folk Dance"}).sort({created:-1}).then(blogs => {
+  Blog.find({tag:"Danzas folklóricas"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/folkDance',{blogs});
   })
 })
-// Music Blog Index Page
+// Música Blog Index Page
 router.get("/music",cacheData.memoryCacheUse(36000),(req,res)=>{
-  Blog.find({tag:"Music"}).sort({created:-1}).then(blogs => {
+  Blog.find({tag:"Música"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/music',{blogs});
   })
 })
-// Art Blogs Index Page
+// letras Blogs Index Page
 router.get("/art",cacheData.memoryCacheUse(36000),(req,res)=>{
   
-  Blog.find({tag:"Art"}).sort({created:-1}).then(blogs => {
+  Blog.find({tag:"letras"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/art',{blogs});
   })
 })
 
-// Literature Blog Index Page
+// Literatura Blog Index Page
 router.get("/literature",cacheData.memoryCacheUse(36000),(req,res)=>{
-  Blog.find({tag:"Literature"}).sort({created:-1}).then(blogs => {
+  Blog.find({tag:"Literatura"}).sort({created:-1}).then(blogs => {
     res.render('../views/blogs/literature',{blogs});
   })
 })
@@ -307,12 +313,118 @@ router.get("/AllBlogs",cacheData.memoryCacheUse(36000),async (req,res)=>{
   
   const blogs = await Blog.find().limit(limit*1).skip((page-1)*limit).sort({created:-1}).exec();
   */
- const blogs = await Blog.find({});
+ const blogs = await Blog.find({}).sort({created:-1});
+ let c=0;
+ let len = blogs.length;
+ blogs.forEach(blog=>{
+   c++;
+   blog.number = c;
+   blog.save();
+    })
   res.render('../views/blogs/blogAll',{blogs});
 }
 catch(err){
   console.log(err.message);
 }
+})
+
+
+// deleting Blog ---only Admin can delete it
+router.get('/posts/:id/delete',async (req,res)=>{
+  console.log("Delete Method Triggered");
+  let id = req.params.id;
+  Blog.findById(id).then(blog=>{
+    let toDel = path.join(__dirname,'../public/uploads/',blog.image);
+    
+    fs.unlinkSync(toDel);
+    blog.subBlogs.remove({},err=>{
+      if(err)
+      console.log(err.message);
+      console.log("SubBlogs Deleted");
+    });
+  });
+  try {
+  await Blog.findByIdAndRemove(id);
+  
+    console.log("item deleted");
+    res.redirect('/blogs');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(404).render('error-page');
+  }
+})
+
+router.get('/posts/:id/admin/comments',(req,res)=>{
+  let id = req.params.id;
+  Blog.findById(id).populate('comments').exec(function(err,blog){
+    if(err)
+    console.log(err.message);
+    let comments = blog.comments;
+    res.render('../views/blogs/commentAdmin',{comments});
+  })
+}) 
+
+// Post route for adding new comment on individual Blog
+// url:/blogs/posts/:id
+router.post('/posts/:id',(req,res)=>{
+  let id = req.params.id;
+
+  console.log(req.body.comment);
+  
+  Comment.create(req.body.comment,function(err,comment){
+    if(err)
+    console.log(err.message);
+    console.log('Created Comment');
+    //res.redirect('/blogs/posts/'+id);
+    comment.save();
+    Blog.findById(id , function(err , blog){
+      if(err)
+      console.log(err.message);
+      blog.comments.push(comment);
+      console.log('pushed');
+      console.log(id);
+      blog.save();
+    
+    })
+  
+    res.redirect('/blogs/posts/'+id);
+  })
+  
+  
+})
+
+
+router.post('/:id/subBlogs/new',async(req,res)=>{
+  try {
+  
+  let subBlog = new SubBlog({title:req.body.title,content:req.body.content,image:req.body.image});
+  let img = req.body.image;
+  await subBlog.save();
+  console.log(subBlog);
+  console.log("----------succesfully created");
+  let blog = await Blog.findById(req.params.id);
+  if(blog.thumbnail==="")
+  {
+    blog.thumbnail=subBlog.image;
+  }
+  blog.subBlogs.push(subBlog);
+  await blog.save();
+  res.redirect('/blogs/posts/'+blog._id+"/admin");
+    
+  } catch (err) {
+    console.log(err.message);
+    
+  }
+})
+router.delete('/posts/comments/:cid',(req,res)=>{
+  console.log("Delete Triggerd");
+  Comment.findByIdAndRemove(req.params.cid,function(err){
+    if(err)
+    console.log(err.message);
+    console.log('Comment Deleted');
+    res.redirect('back');
+
+  })
 })
 
 
